@@ -1,13 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { MapPin, Building } from "lucide-react";
-import heroLaptop from "@/assets/hero-laptop.jpg";
+import heroBackground from "@/assets/hero-background.jpg";
 
 const Hero = () => {
   return (
     <section id="inicio" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Vibrant gradient background with geometric shapes */}
-      <div className="absolute inset-0 bg-gradient-hero-vibrant" />
-      
+      {/* Background image layer */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${heroBackground})` }}
+      />
+
       {/* Geometric triangle decorations */}
       <div className="absolute inset-0 overflow-hidden opacity-20">
         <div className="absolute top-20 right-1/4 w-96 h-96 border-l-[100px] border-l-transparent border-r-[100px] border-r-transparent border-b-[150px] border-b-primary-foreground/30 rotate-45" />
@@ -17,18 +20,9 @@ const Hero = () => {
       </div>
       
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 items-center">
-          {/* Left side - Laptop image */}
-          <div className="relative animate-fade-in">
-            <img 
-              src={heroLaptop} 
-              alt="Dashboard de análisis inmobiliario"
-              className="relative w-full max-w-2xl"
-            />
-          </div>
-
-          {/* Right side - Content */}
-          <div className="text-primary-foreground space-y-8 text-right">
+        <div className="flex justify-end">
+          {/* Content */}
+          <div className="text-primary-foreground space-y-8 text-right max-w-2xl">
             <h1 className="text-5xl lg:text-6xl font-bold leading-tight animate-fade-in">
               Aliados estratégicos en el flipping inmobiliario
             </h1>
@@ -64,8 +58,8 @@ const Hero = () => {
             </div>
 
             {/* CTA Button */}
-            <div className="flex justify-end pt-4">
-              <Button size="lg" className="bg-background text-primary hover:bg-background/90 rounded-full px-10">
+            <div className="flex justify-start pt-28">
+              <Button size="lg" className="bg-background text-primary hover:bg-background/90 rounded-full px-10 self-start">
                 lorem ipsum
               </Button>
             </div>
