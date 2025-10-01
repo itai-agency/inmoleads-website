@@ -3,29 +3,53 @@ import { ChevronDown } from "lucide-react";
 const items = [
   {
     q: "¿Cuál es el proceso del servicio de marketing?",
-    a: "Utilizamos una combinación de estrategias digitales avanzadas, incluyendo SEO, publicidad en redes sociales y campañas de Google Ads para captar leads de alta calidad interesados en el mercado inmobiliario.",
+    a: "Nuestra agencia se enfoca en diseñar estrategias de marketing digital centradas en atraer posibles compradores interesados en vender su vivienda, ya sea a través de créditos Infonavit o bancarios.",
+  },
+  {
+    q: "¿Cómo funciona el servicio de marketing de forma continua?",
+    a: "Nuestro servicio opera con una suscripción mensual, donde cada mes adaptamos y desarrollamos la estrategia de marketing según tus objetivos y metas actuales.",
   },
   {
     q: "¿Hay contratos de largo plazo involucrados?",
-    a: "No, trabajamos con contratos flexibles que se adaptan a tus necesidades. Puedes iniciar con proyectos específicos sin compromisos a largo plazo.",
+    a: "Siguiendo nuestra política en INMOLEADS, no imponemos contratos, ya que nuestra prioridad es garantizar los resultados que necesitas en cada mes de colaboración.",
+  },
+  {
+    q: "¿Ofrecemos garantía en relación a los resultados acordados?",
+    a: "Sí, en InmoLeads ofrecemos una garantía: si en un plazo de 3 meses no obtienes los resultados esperados, trabajaremos de manera gratuita hasta cumplir con los objetivos establecidos.",
+  },
+  {
+    q: "¿Cómo se formaliza la colaboración si no empleamos contratos?",
+    a: "Utilizamos un acuerdo de prestación de servicios detallado, donde especificamos tareas y responsabilidades tanto de nuestra agencia como del cliente.",
   },
   {
     q: "¿Cuál es nuestra cobertura geográfica?",
-    a: "Tenemos presencia en 14 ciudades principales y 13 estados de México, con capacidad de expandir nuestros servicios según las necesidades de cada cliente.",
+    a: "Operamos a nivel nacional en México, brindando nuestros servicios en todos los estados del país.",
+  },
+  {
+    q: "¿Cómo manejamos la confidencialidad y la exclusividad del servicio?",
+    a: "En INMOLEADS garantizamos total confidencialidad: la información de nuestros clientes no se comparte con terceros ni con otras empresas del sector.",
   },
   {
     q: "¿Cuándo se pueden esperar resultados concretos?",
-    a: "Los primeros leads calificados suelen comenzar a llegar en las primeras 2-3 semanas. Los resultados óptimos y constantes se observan generalmente después del primer mes de operación.",
+    a: "Como en toda estrategia de marketing, los resultados pueden variar. Sugerimos considerar un período de aprendizaje de 90 días para evaluar resultados significativos de forma realista.",
+  },
+  {
+    q: "¿Cuál es la experiencia de INMOLEADS en el mercado?",
+    a: "Contamos con más de 5 años de experiencia en publicidad y estrategias de marketing. En el sector inmobiliario, hemos estado dedicados los últimos 2 años.",
+  },
+  {
+    q: "¿Quién posee los diseños, videos y material visual: INMOLEADS o los clientes?",
+    a: "Todos los diseños, videos y contenido visual son propiedad exclusiva de nuestros clientes. Respetamos y garantizamos su plena titularidad sobre el material generado.",
   },
 ];
 
 const FAQ = () => {
   return (
     <section className="py-24 bg-[#2F3641] font-montserrat">
-  <div className="container mx-auto px-6 max-w-3xl">
-    <h2 className="text-3xl lg:text-4xl font-bold text-white mb-12">
-      Preguntas frecuentes
-    </h2>
+      <div className="container mx-auto px-6 max-w-3xl">
+        <h2 className="text-3xl lg:text-4xl font-bold text-white mb-12">
+          Preguntas frecuentes
+        </h2>
 
         <div className="space-y-4">
           {items.map((it, i) => (
@@ -41,7 +65,7 @@ const FAQ = () => {
               <div
                 className="
                   flex items-center justify-between
-                  px-8 py-3   /* REDUCIDA altura */
+                  px-8 py-3
                   text-white group-hover:text-[#E85C03]
                 "
               >
@@ -70,7 +94,7 @@ const FAQ = () => {
                 className="
                   px-8 pb-4 pt-0
                   text-[#E85C03]
-                  text-sm md:text-base   /* también un poco más compacto */
+                  text-sm md:text-base
                   leading-relaxed
                   max-h-0 opacity-0
                   transition-[max-height,opacity] duration-300 ease-in-out

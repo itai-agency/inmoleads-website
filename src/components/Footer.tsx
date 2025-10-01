@@ -1,32 +1,29 @@
 import { Facebook, Instagram } from "lucide-react";
+import tiktokIcon from "@/assets/tiktok.png";
 
-const TikTokIcon = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="currentColor"
-    viewBox="0 0 24 24"
-    {...props}
-  >
-    <path d="M12 2c1.2 1.3 2.8 2.1 4.6 2.2v3.5c-1.7-.1-3.2-.8-4.6-1.9v7.3c0 3.5-2.8 6.3-6.3 6.3-1.3 0-2.5-.4-3.5-1.1.9.1 1.9-.2 2.7-.8a3.6 3.6 0 0 0 1.4-2.8V8.3h3.1v3.5c1.3.9 2.9 1.5 4.6 1.5V22h-2V2z" />
-  </svg>
-);
+const ORANGE = "#E85C03";
+const WHATSAPP_URL =
+  "https://wa.me/526643745275?text=Hola%2C%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20sus%20servicios.";
+const GMAIL_COMPOSE_URL =
+  "https://mail.google.com/mail/?view=cm&fs=1&to=inmoleads@expertizdigital.com&su=Consulta&body=Hola%2C%20me%20gustar%C3%ADa%20informaci%C3%B3n.";
+
+const socialBtn =
+  "w-12 h-12 rounded-full bg-white flex items-center justify-center transition-colors group hover:bg-[#E85C03] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#E85C03] focus:ring-offset-[#1A1A1A]";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#5E5E5E] text-white py-12 font-montserrat">
+    <footer className="bg-[#1A1A1A] text-white py-12 font-montserrat">
       <div className="container mx-auto px-6 text-center">
-        {/* Mensaje principal */}
         <h3 className="text-lg mb-2 font-bold">Queremos saber de ti</h3>
-        <h2 className="text-3xl md:text-4xl font-bold text-orange-500 mb-10">
+        <h2 className="text-3xl md:text-4xl font-bold mb-10" style={{ color: ORANGE }}>
           ¡COMUNÍCATE CON NOSOTROS!
         </h2>
 
-        {/* Secciones */}
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           {/* Servicios */}
           <div>
             <h4 className="font-bold text-lg mb-4">Servicios</h4>
-            <ul className="space-y-2 text-base font-normal text-gray-200">
+            <ul className="space-y-2 text-lg font-normal text-gray-200 leading-relaxed">
               <li>Marketing Digital para Flipping</li>
               <li>Business Development Center</li>
             </ul>
@@ -37,22 +34,35 @@ const Footer = () => {
             <h4 className="font-bold text-lg mb-4">Síguenos</h4>
             <div className="flex justify-center gap-6">
               <a
-                href="#"
-                className="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-orange-500 transition-colors"
+                href="https://www.facebook.com/profile.php?id=100088710601367"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={socialBtn}
+                aria-label="Facebook"
               >
-                <Facebook className="w-6 h-6 text-black" />
+                <Facebook className="w-6 h-6 text-black group-hover:text-white transition-colors" />
               </a>
               <a
-                href="#"
-                className="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-orange-500 transition-colors"
+                href="https://www.instagram.com/inmoleads.mkt/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={socialBtn}
+                aria-label="Instagram"
               >
-                <Instagram className="w-6 h-6 text-black" />
+                <Instagram className="w-6 h-6 text-black group-hover:text-white transition-colors" />
               </a>
               <a
-                href="#"
-                className="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-orange-500 transition-colors"
+                href="https://www.tiktok.com/@inmoleads"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={socialBtn}
+                aria-label="TikTok"
               >
-                <TikTokIcon className="w-6 h-6 text-black" />
+                <img
+                  src={tiktokIcon}
+                  alt="TikTok"
+                  className="w-6 h-6 object-contain transition-all group-hover:invert group-hover:brightness-0"
+                />
               </a>
             </div>
           </div>
@@ -60,12 +70,30 @@ const Footer = () => {
           {/* Contáctanos */}
           <div>
             <h4 className="font-bold text-lg mb-4">Contáctanos</h4>
-            <ul className="space-y-2 text-xl font-normal text-white">
+            <ul className="space-y-3 text-lg font-normal text-white leading-relaxed">
               <li>
-                <strong>Teléfono:</strong> +52 (664) 374-5275
+                <strong>Teléfono:</strong>{" "}
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 decoration-white/40 hover:decoration-white"
+                  aria-label="Escríbenos por WhatsApp"
+                >
+                  +52 (664) 374-5275
+                </a>
               </li>
               <li>
-                <strong>Email:</strong> hola@expertizdigital.com
+                <strong>Email:</strong>{" "}
+                <a
+                  href={GMAIL_COMPOSE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 decoration-white/40 hover:decoration-white"
+                  aria-label="Escríbenos por Gmail"
+                >
+                  inmoleads@expertizdigital.com
+                </a>
               </li>
             </ul>
           </div>
