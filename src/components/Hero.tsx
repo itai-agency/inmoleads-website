@@ -8,7 +8,7 @@ const Hero = () => {
       {/* Background image layer */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroBackground})` }}
+        style={{ backgroundImage: `url(${heroBackground})`, backgroundPositionY: "100%" }}
       />
 
       {/* Geometric triangle decorations */}
@@ -22,8 +22,8 @@ const Hero = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex justify-end">
           {/* Content */}
-          <div className="text-primary-foreground space-y-8 text-right max-w-2xl">
-            <h1 className="text-5xl lg:text-6xl font-bold leading-tight animate-fade-in">
+          <div className="pt-20 text-primary-foreground space-y-8 text-right max-w-2xl">
+            <h1 className="text-5xl lg:text-5xl font-bold leading-tight animate-fade-in text-white">
               Aliados estratégicos en el flipping inmobiliario
             </h1>
             <p className="text-xl text-primary-foreground/95 ml-auto max-w-xl">
@@ -31,12 +31,12 @@ const Hero = () => {
             </p>
             
             {/* Stats section */}
-            <div className="flex flex-col items-end gap-4 pt-8">
-              <div className="text-lg text-primary-foreground/90 font-semibold uppercase tracking-wider">
+            <div className="flex flex-col items-center gap-4 pt-10 pl-[39%]">
+              <div className="text-lg text-primary-foreground/90 font-semibold uppercase tracking-wider text-center">
                 CON PRESENCIA EN
               </div>
               
-              <div className="bg-background rounded-3xl p-8 shadow-2xl inline-block">
+              <div className="bg-background rounded-3xl p-8 shadow-2xl">
                 <div className="flex items-center gap-8">
                   <div className="text-center">
                     <div className="text-5xl font-bold text-primary">14</div>
@@ -52,17 +52,18 @@ const Hero = () => {
                 </div>
               </div>
               
-              <div className="text-lg text-primary-foreground/90 font-semibold uppercase tracking-wider">
+              <div className="text-lg text-primary-foreground/90 font-semibold uppercase tracking-wider text-center">
                 DE MÉXICO
               </div>
             </div>
 
-            {/* CTA Button */}
-            <div className="flex justify-start pt-28">
-              <Button size="lg" className="bg-background text-primary hover:bg-background/90 rounded-full px-10 self-start">
-                lorem ipsum
+            {/* Button below DE MÉXICO, aligned left */}
+            <div className="flex justify-start mt-6">
+              <Button size="lg" className="bg-white text-primary hover:bg-primary hover:text-white rounded-full px-14">
+                Contactanos
               </Button>
             </div>
+
           </div>
         </div>
       </div>

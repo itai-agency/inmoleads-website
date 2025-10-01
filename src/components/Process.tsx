@@ -25,10 +25,10 @@ const Process = () => {
     <section id="proceso" className="py-24 bg-[#212733] text-white">
       <div className="container mx-auto px-6">
         <div className="mb-16 max-w-4xl">
-          <h2 className="text-4xl lg:text-5xl font-bold leading-tight">
+          <h2 className="text-4xl lg:text-4xl font-bold leading-tight text-white">
             Un proceso inteligente para resultados reales
           </h2>
-          <p className="mt-4 text-lg text-white/80 leading-relaxed">
+          <p className="mt-4 text-lg text-white/90 leading-relaxed">
             Conecta con inversores listos. Reducimos tus tiempos de cierre y te ayudamos a escalar tu negocio inmobiliario con estrategias digitales que realmente funcionan.
           </p>
         </div>
