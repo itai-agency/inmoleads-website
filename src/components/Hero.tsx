@@ -1,13 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { MapPin, Building } from "lucide-react";
-import heroLaptop from "@/assets/hero-laptop.jpg";
+import heroBackground from "@/assets/hero-background.jpg";
 
 const Hero = () => {
   return (
     <section id="inicio" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Vibrant gradient background with geometric shapes */}
-      <div className="absolute inset-0 bg-gradient-hero-vibrant" />
-      
+      {/* Background image layer */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${heroBackground})`, backgroundPositionY: "100%" }}
+      />
+
       {/* Geometric triangle decorations */}
       <div className="absolute inset-0 overflow-hidden opacity-20">
         <div className="absolute top-20 right-1/4 w-96 h-96 border-l-[100px] border-l-transparent border-r-[100px] border-r-transparent border-b-[150px] border-b-primary-foreground/30 rotate-45" />
@@ -17,19 +20,10 @@ const Hero = () => {
       </div>
       
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 items-center">
-          {/* Left side - Laptop image */}
-          <div className="relative animate-fade-in">
-            <img 
-              src={heroLaptop} 
-              alt="Dashboard de análisis inmobiliario"
-              className="relative w-full max-w-2xl"
-            />
-          </div>
-
-          {/* Right side - Content */}
-          <div className="text-primary-foreground space-y-8 text-right">
-            <h1 className="text-5xl lg:text-6xl font-bold leading-tight animate-fade-in">
+        <div className="flex justify-end">
+          {/* Content */}
+          <div className="pt-20 text-primary-foreground space-y-8 text-right max-w-2xl">
+            <h1 className="text-5xl lg:text-5xl font-bold leading-tight animate-fade-in text-white">
               Aliados estratégicos en el flipping inmobiliario
             </h1>
             <p className="text-xl text-primary-foreground/95 ml-auto max-w-xl">
@@ -37,12 +31,12 @@ const Hero = () => {
             </p>
             
             {/* Stats section */}
-            <div className="flex flex-col items-end gap-4 pt-8">
-              <div className="text-lg text-primary-foreground/90 font-semibold uppercase tracking-wider">
+            <div className="flex flex-col items-center gap-4 pt-10 pl-[39%]">
+              <div className="text-lg text-primary-foreground/90 font-semibold uppercase tracking-wider text-center">
                 CON PRESENCIA EN
               </div>
               
-              <div className="bg-background rounded-3xl p-8 shadow-2xl inline-block">
+              <div className="bg-background rounded-3xl p-8 shadow-2xl">
                 <div className="flex items-center gap-8">
                   <div className="text-center">
                     <div className="text-5xl font-bold text-primary">14</div>
@@ -58,17 +52,18 @@ const Hero = () => {
                 </div>
               </div>
               
-              <div className="text-lg text-primary-foreground/90 font-semibold uppercase tracking-wider">
+              <div className="text-lg text-primary-foreground/90 font-semibold uppercase tracking-wider text-center">
                 DE MÉXICO
               </div>
             </div>
 
-            {/* CTA Button */}
-            <div className="flex justify-end pt-4">
-              <Button size="lg" className="bg-background text-primary hover:bg-background/90 rounded-full px-10">
-                lorem ipsum
+            {/* Button below DE MÉXICO, aligned left */}
+            <div className="flex justify-start mt-6">
+              <Button size="lg" className="bg-white text-primary hover:bg-primary hover:text-white rounded-full px-14">
+                Contactanos
               </Button>
             </div>
+
           </div>
         </div>
       </div>

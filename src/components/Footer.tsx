@@ -14,16 +14,19 @@ const Footer = () => {
   return (
     <footer className="bg-[#1A1A1A] text-white py-12 font-montserrat">
       <div className="container mx-auto px-6 text-center">
-        <h3 className="text-lg mb-2 font-bold">Queremos saber de ti</h3>
-        <h2 className="text-3xl md:text-4xl font-bold mb-10" style={{ color: ORANGE }}>
+        <h3 className="text-lg mb-2 font-bold text-white">Queremos saber de ti</h3>
+        <h2
+          className="text-3xl md:text-4xl font-bold mb-10"
+          style={{ color: ORANGE }}
+        >
           ¡COMUNÍCATE CON NOSOTROS!
         </h2>
 
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           {/* Servicios */}
           <div>
-            <h4 className="font-bold text-lg mb-4">Servicios</h4>
-            <ul className="space-y-2 text-lg font-normal text-gray-200 leading-relaxed">
+            <h4 className="font-bold text-lg mb-4 text-white">Servicios</h4>
+            <ul className="space-y-2 text-lg font-normal text-white leading-relaxed">
               <li>Marketing Digital para Flipping</li>
               <li>Business Development Center</li>
             </ul>
@@ -31,7 +34,7 @@ const Footer = () => {
 
           {/* Síguenos */}
           <div>
-            <h4 className="font-bold text-lg mb-4">Síguenos</h4>
+            <h4 className="font-bold text-lg mb-4 text-white">Síguenos</h4>
             <div className="flex justify-center gap-6">
               <a
                 href="https://www.facebook.com/profile.php?id=100088710601367"
@@ -69,7 +72,7 @@ const Footer = () => {
 
           {/* Contáctanos */}
           <div>
-            <h4 className="font-bold text-lg mb-4">Contáctanos</h4>
+            <h4 className="font-bold text-lg mb-4 text-white">Contáctanos</h4>
             <ul className="space-y-3 text-lg font-normal text-white leading-relaxed">
               <li>
                 <strong>Teléfono:</strong>{" "}
