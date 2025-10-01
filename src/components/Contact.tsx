@@ -70,7 +70,7 @@ function FancySelect({
         <div
           ref={menuRef}
           role="listbox"
-          className="absolute z-30 mt-2 w-full bg-white rounded-xl border border-black/10 shadow-lg overflow-hidden"
+          className="absolute z-30 mt-2 w-full bg-white rounded-xl border border-black/10 shadow-lg overflow-hidden max-h-60 overflow-y-auto"
         >
           {options.map((opt) => {
             const active = opt.value === value;
@@ -122,10 +122,8 @@ export default function Contact() {
     /^[0-9+\-\s()]{7,15}$/.test(phone);
 
   const openGmailCompose = (to: string, subject: string, body: string) => {
-    // Abre Gmail web en una pestaña nueva
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`;
     const w = window.open(gmailUrl, "_blank");
-    // Fallback si el popup es bloqueado
     if (!w) {
       window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
     }
@@ -136,7 +134,13 @@ export default function Contact() {
     setError("");
     setOk(false);
 
-    if (!form.nombre || !form.apellido || !form.email || !form.telefono || !form.mensaje) {
+    if (
+      !form.nombre ||
+      !form.apellido ||
+      !form.email ||
+      !form.telefono ||
+      !form.mensaje
+    ) {
       setError("Por favor completa todos los campos.");
       return;
     }
@@ -152,10 +156,10 @@ export default function Contact() {
     const subject = encodeURIComponent("Nuevo mensaje de contacto");
     const body = encodeURIComponent(
       `Nombre: ${form.nombre} ${form.apellido}\n` +
-      `Email: ${form.email}\n` +
-      `Teléfono: ${form.telefono}\n` +
-      `Tipo de Cliente: ${tipoCliente || "(no especificado)"}\n\n` +
-      `Mensaje:\n${form.mensaje}`
+        `Email: ${form.email}\n` +
+        `Teléfono: ${form.telefono}\n` +
+        `Tipo de Cliente: ${tipoCliente || "(no especificado)"}\n\n` +
+        `Mensaje:\n${form.mensaje}`
     );
 
     openGmailCompose("inmoleads@expertizdigital.com", subject, body);
@@ -165,72 +169,139 @@ export default function Contact() {
   };
 
   return (
-    <section id="contacto" className="py-16 md:py-20 bg-[#F4F5F9] font-montserrat">
-      <div className="container mx-auto px-6 max-w-6xl">
-        <div className="grid lg:grid-cols-2 gap-10 items-start">
+    <section
+      id="contacto"
+      className="py-10 sm:py-14 md:py-20 bg-[#F4F5F9] font-montserrat"
+    >
+      <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
+        <div className="grid gap-10 items-start lg:grid-cols-2">
           {/* Izquierda: mapa + leyendas */}
-          <div>
-            <h3 className="text-center text-[26px] md:text-[28px] font-bold text-black leading-tight mb-6">
+          <div className="w-full">
+            <h3 className="text-center font-bold text-black leading-tight mb-4 sm:mb-6 text-[22px] sm:text-[26px] md:text-[28px]">
               Cada vez <br /> más cerca de ti
             </h3>
 
-            <div className="inline-block mb-3 relative">
-              {/* PNG de fondo detrás del mapa */}
+            {/* Contenedor responsivo del mapa */}
+            <div className="relative inline-block w-full max-w-[640px]">
+              {/* Decoración PNG detrás del mapa */}
               <img
                 src={logoBg}
                 alt="Decoración detrás del mapa"
-                className="absolute -left-6 -top-6 w-[108%] select-none pointer-events-none"
+                className="
+                  absolute select-none pointer-events-none
+                  -left-2 -top-2 w-[104%]
+                  sm:-left-4 sm:-top-4 sm:w-[106%]
+                  md:-left-6 md:-top-6 md:w-[108%]
+                "
               />
 
-              {/* Mapa principal */}
+              {/* Mapa */}
               <img
                 src={mapa}
                 alt="Mapa de cobertura"
-                className="relative block max-w-full h-auto z-10"
+                className="relative block w-full h-auto z-10"
                 style={{ filter: "drop-shadow(0 14px 22px rgba(0,0,0,0.22))" }}
               />
 
-              {/* Estados (como tu referencia) */}
+              {/* Estados sobre el mapa */}
               <div className="pointer-events-none absolute inset-0 z-20">
                 {/* Arriba-derecha */}
-                <div className="absolute right-[7%] top-[8%] text-[14px] md:text-[16px] leading-5 text-[#E85C03] font-bold text-right space-y-1">
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Baja California</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Sonora</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Chihuahua</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Coahuila</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Nuevo León</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Sinaloa</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Aguascalientes</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">San Luis Potosí</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Zacatecas</div>
+                <div
+                  className="
+                    absolute text-[#E85C03] font-bold text-right space-y-0.5
+                    top-[6%] right-[3%]
+                    sm:top-[7%] sm:right-[5%]
+                    md:top-[8%] md:right-[7%]
+                    text-[11px] leading-4
+                    sm:text-[13px] sm:leading-5
+                    md:text-[16px]
+                  "
+                >
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Baja California
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Sonora
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Chihuahua
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Coahuila
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Nuevo León
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Sinaloa
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Aguascalientes
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    San Luis Potosí
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Zacatecas
+                  </div>
                 </div>
 
                 {/* Abajo-izquierda */}
-                <div className="absolute left-[3%] bottom-[8%] text-[14px] md:text-[16px] leading-5 text-[#E85C03] font-bold space-y-1">
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Guanajuato</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Querétaro</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Estado de México</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Ciudad de México</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Puebla</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Tlaxcala</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Guerrero</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Oaxaca</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Chiapas</div>
-                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">Yucatán</div>
+                <div
+                  className="
+                    absolute text-[#E85C03] font-bold space-y-0.5
+                    left-[2%] bottom-[6%]
+                    sm:left-[3%] sm:bottom-[7%]
+                    md:left-[3%] md:bottom-[8%]
+                    text-[11px] leading-4
+                    sm:text-[13px] sm:leading-5
+                    md:text-[16px]
+                  "
+                >
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Guanajuato
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Querétaro
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Estado de México
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Ciudad de México
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Puebla
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Tlaxcala
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Guerrero
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Oaxaca
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Chiapas
+                  </div>
+                  <div className="drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                    Yucatán
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Derecha: formulario */}
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-6 text-center">
+          <div className="w-full">
+            <h2 className="text-center font-bold text-black mb-5 sm:mb-6 text-[26px] sm:text-3xl md:text-4xl">
               Conecta con nosotros
             </h2>
 
             <form className="space-y-4" onSubmit={handleSubmit}>
               {/* Nombre / Apellido */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <input
                   type="text"
                   name="nombre"
@@ -297,17 +368,21 @@ export default function Contact() {
                 style={{ borderColor: ORANGE }}
               />
 
-              {error && <p className="text-red-600 text-center">{error}</p>}
+              {error && (
+                <p className="text-red-600 text-center text-sm sm:text-base">
+                  {error}
+                </p>
+              )}
               {ok && (
-                <p className="text-green-600 text-center">
+                <p className="text-green-600 text-center text-sm sm:text-base">
                   Se abrió tu correo con el mensaje listo. ¡Revísalo y envíalo!
                 </p>
               )}
 
-              <div className="pt-2 flex justify-center">
+              <div className="pt-1 sm:pt-2 flex">
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center rounded-full px-6 py-2.5 font-bold text-white shadow-[0_6px_0_rgba(0,0,0,0.25)] active:translate-y-[2px] active:shadow-[0_4px_0_rgba(0,0,0,0.25)]"
+                  className="w-full sm:w-auto sm:px-8 inline-flex items-center justify-center rounded-full px-6 py-3 font-bold text-white shadow-[0_6px_0_rgba(0,0,0,0.25)] active:translate-y-[2px] active:shadow-[0_4px_0_rgba(0,0,0,0.25)]"
                   style={{ backgroundColor: ORANGE }}
                 >
                   Enviar
