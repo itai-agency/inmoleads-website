@@ -1,13 +1,21 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { X, Menu } from "lucide-react";
 import logoImage from "@/assets/Logotipo.png";
 
-const leftLinks = [
+type NavLink = {
+  href: string;
+  label: string;
+  isExternal?: boolean;
+};
+
+const leftLinks: NavLink[] = [
   { href: "#inicio", label: "Inicio" },
   { href: "#servicios", label: "Servicios" },
   { href: "#proceso", label: "Proceso" },
 ];
 
-const rightLinks = [
+const rightLinks: NavLink[] = [
   { href: "#nosotros", label: "Nosotros" },
   { href: "#contacto", label: "Contacto" },
   { 
@@ -17,7 +25,18 @@ const rightLinks = [
   },
 ];
 
+const allLinks = [...leftLinks, ...rightLinks];
+
 const Navigation = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
   return (
     <nav className="fixed top-4 left-0 right-0 z-50">
       <div className="container mx-auto px-3 md:px-6">
@@ -27,7 +46,7 @@ const Navigation = () => {
               <a
                 key={link.href}
                 href={link.href}
-                className="flex-1 px-4 text-center transition-colors hover:text-primary/70"
+                className="flex-1 px-4 text-center transition-colors hover:text-orange-500 hover:font-semibold"
               >
                 {link.label}
               </a>
@@ -47,7 +66,7 @@ const Navigation = () => {
               <a
                 key={link.href}
                 href={link.href}
-                className="flex-1 px-4 text-center transition-colors hover:text-primary/70"
+                className="flex-1 px-4 text-center transition-colors hover:text-orange-500 hover:font-semibold"
               >
                 {link.label}
               </a>
@@ -55,9 +74,44 @@ const Navigation = () => {
           </div>
 
           <div className="flex flex-1 justify-end md:hidden">
-            <Button size="sm" className="rounded-full">
-              Menú
+            <Button 
+              size="sm" 
+              className="rounded-full"
+              onClick={toggleMenu}
+              aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            >
+              {isMenuOpen ? 'Cerrar' : 'Menú'}
             </Button>
+          </div>
+
+          {/* Mobile Menu */}
+          <div 
+            className={`fixed inset-0 z-40 bg-transparent transition-opacity duration-300 md:hidden ${
+              isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+            }`}
+            onClick={closeMenu}
+          >
+            <div 
+              className={`fixed right-4 top-20 z-50 w-[calc(100%-2rem)] rounded-2xl border border-border/40 bg-background p-6 shadow-lg transition-all duration-300 ${
+                isMenuOpen ? 'translate-y-0' : '-translate-y-4'
+              }`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex flex-col space-y-4">
+                {allLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={closeMenu}
+                    className="block rounded-lg px-4 py-3 text-center font-medium transition-colors hover:bg-orange-500 hover:text-white"
+                    target={link.isExternal ? "_blank" : "_self"}
+                    rel={link.isExternal ? "noopener noreferrer" : ""}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
