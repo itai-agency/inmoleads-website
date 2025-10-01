@@ -1,10 +1,7 @@
 import { ChevronDown } from "lucide-react";
 
 const items = [
-  {
-    q: "¿Cuál es el proceso del servicio de marketing?",
-    a: "Nuestra agencia se enfoca en diseñar estrategias de marketing digital centradas en atraer posibles compradores interesados en vender su vivienda, ya sea a través de créditos Infonavit o bancarios.",
-  },
+ 
   {
     q: "¿Cómo funciona el servicio de marketing de forma continua?",
     a: "Nuestro servicio opera con una suscripción mensual, donde cada mes adaptamos y desarrollamos la estrategia de marketing según tus objetivos y metas actuales.",
@@ -21,22 +18,12 @@ const items = [
     q: "¿Cómo se formaliza la colaboración si no empleamos contratos?",
     a: "Utilizamos un acuerdo de prestación de servicios detallado, donde especificamos tareas y responsabilidades tanto de nuestra agencia como del cliente.",
   },
-  {
-    q: "¿Cuál es nuestra cobertura geográfica?",
-    a: "Operamos a nivel nacional en México, brindando nuestros servicios en todos los estados del país.",
-  },
-  {
-    q: "¿Cómo manejamos la confidencialidad y la exclusividad del servicio?",
-    a: "En INMOLEADS garantizamos total confidencialidad: la información de nuestros clientes no se comparte con terceros ni con otras empresas del sector.",
-  },
+  
   {
     q: "¿Cuándo se pueden esperar resultados concretos?",
     a: "Como en toda estrategia de marketing, los resultados pueden variar. Sugerimos considerar un período de aprendizaje de 90 días para evaluar resultados significativos de forma realista.",
   },
-  {
-    q: "¿Cuál es la experiencia de INMOLEADS en el mercado?",
-    a: "Contamos con más de 5 años de experiencia en publicidad y estrategias de marketing. En el sector inmobiliario, hemos estado dedicados los últimos 2 años.",
-  },
+
   {
     q: "¿Quién posee los diseños, videos y material visual: INMOLEADS o los clientes?",
     a: "Todos los diseños, videos y contenido visual son propiedad exclusiva de nuestros clientes. Respetamos y garantizamos su plena titularidad sobre el material generado.",
