@@ -5,26 +5,21 @@ import gallery3 from "@/assets/galeria_3.png";
 import gallery4 from "@/assets/galeria_4.png";
 
 const About = () => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-
-  const highlights = [
-    {
-      image: gallery1,
-      alt: "Equipo de trabajo colaborando en una reunión",
-    },
-    {
-      image: gallery2,
-      alt: "Profesionales analizando estrategias en conjunto",
-    },
-    {
-      image: gallery3,
-      alt: "Equipo revisando métricas en una tablet",
-    },
-    {
-      image: gallery4,
-      alt: "Grupo celebrando un logro empresarial",
-    },
-  ];
+  const [hoveredIndex, setHoveredIndex] = useState<number>(0); // Start with first image hovered
+  // Using a Set to ensure unique images only
+  const highlights = [gallery1, gallery2, gallery3, gallery4].filter(
+    (image, index, self) => index === self.findIndex((i) => i === image)
+  );
+  
+  // Handle mouse enter/leave
+  const handleMouseEnter = (index: number) => {
+    setHoveredIndex(index);
+  };
+  
+  const handleMouseLeave = () => {
+    // Keep the first image hovered by default when leaving
+    setHoveredIndex(0);
+  };
 
   return (
     <section id="nosotros" className="py-24 bg-muted/30">
@@ -33,25 +28,30 @@ const About = () => {
           <h2 className="text-4xl lg:text-5xl font-bold mb-4 text-start">Quiénes somos</h2>
         </div>
 
-        <div className="mx-auto flex flex-col gap-4 md:flex-row md:gap-6 max-w-6xl">
-          {highlights.map((item, index) => {
-            const isActive = activeIndex === index;
-            return (
-              <div
-                key={item.alt}
-                className={`relative overflow-hidden rounded-[48px] cursor-pointer shadow-none md:transition-[flex] md:duration-500 md:ease-out ${
-                  isActive ? "md:flex-[1.35]" : "md:flex-[0.7]"
-                }`}
-                onMouseEnter={() => setActiveIndex(index)}
-              >
-                <img
-                  src={item.image}
-                  alt={item.alt}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            );
-          })}
+        <div className="flex w-full max-w-6xl mx-auto h-[500px] gap-2 md:gap-3">
+          {highlights.map((image, index) => (
+            <div
+              key={index}
+              className={`relative rounded-[28px] overflow-hidden transition-all duration-500 ease-in-out flex items-center justify-center ${
+                hoveredIndex === index 
+                  ? 'w-1/2 md:w-2/3' 
+                  : 'w-1/8 md:w-1/9'
+              }`}
+              onMouseEnter={() => handleMouseEnter(index)}
+              onMouseLeave={handleMouseLeave}
+            >
+              <img
+                src={image}
+                alt=""
+                className="h-full w-auto max-w-none transition-transform duration-500 ease-out hover:scale-105"
+                style={{
+                  objectFit: 'contain',
+                  maxHeight: '100%',
+                  width: 'auto'
+                }}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>

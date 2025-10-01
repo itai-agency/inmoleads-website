@@ -10,7 +10,11 @@ const leftLinks = [
 const rightLinks = [
   { href: "#nosotros", label: "Nosotros" },
   { href: "#contacto", label: "Contacto" },
-  { href: "#agenda", label: "Agenda una demo" },
+  { 
+    href: "https://wa.me/525649871454?text=Hola,%20me%20gustaría%20agendar%20una%20reunión", 
+    label: "Agendar un meet",
+    isExternal: true 
+  },
 ];
 
 const Navigation = () => {

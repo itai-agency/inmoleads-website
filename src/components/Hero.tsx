@@ -56,16 +56,6 @@ const Hero = () => {
                 DE MÉXICO
               </div>
             </div>
-
-            {/* Button below DE MÉXICO, aligned left */}
-            <div className="flex justify-start mt-6">
-              <a href="#contacto">
-                <Button size="lg" className="bg-white text-primary hover:bg-primary hover:text-white rounded-full px-14">
-                  Contáctanos
-                </Button>
-              </a>
-            </div>
-
           </div>
         </div>
       </div>
