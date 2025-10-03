@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, MapPin, Quote } from "lucide-react";
 import degradado from "@/assets/degradado.png";
 import captura1 from "@/assets/captura11.jpeg";
 import captura2 from "@/assets/captura2.jpg";
+import testimonio1 from "@/assets/testimonio1.jpg";
 
 type Slide = {
   id: number;
@@ -21,17 +22,25 @@ const SLIDES: Slide[] = [
     location: "México, Tijuana",
     lines: [
       "Nos encantó el servicio y los resultados que está teniendo…",
-      "No nos vamos a dar abasto",
     ],
     mediaSrc: captura1,
   },
   {
     id: 2,
+    name: "Alonso",
+    role: "KV Flip",
+    location: "Edo. México",
+    lines: ["Empiezo a conocer los pro y contras de este negocio.",
+    ],
+    mediaSrc: captura2,
+  },
+  {
+    id: 3,
     name: "Daniel Rodriguez",
     role: "RoRo Inmobiliaria",
     location: "Edo. México",
     lines: ["El acompañamiento fue excelente y los resultados llegaron rápido."],
-    mediaSrc: captura2,
+    mediaSrc: testimonio1,
   },
 ];
 
@@ -51,14 +60,14 @@ export default function Testimonials() {
 
   return (
     <section className="relative py-12 md:py-16 lg:py-20 overflow-hidden">
-      {/* fondo degradado global */}
+      {/* Fondo degradado global */}
       <img
         src={degradado as unknown as string}
         alt=""
         className="absolute inset-0 w-full h-full object-cover -z-10"
       />
 
-      <div className="relative container mx-auto px-4 sm:px-6 max-w-[1220px]">
+      <div className="relative container mx-auto px-4 sm:px-6 max-w-[1000px]">
         <h2 className="text-center text-[#2F3641] font-semibold
                        text-[clamp(24px,4vw,40px)] leading-tight mb-[clamp(16px,3vw,28px)]">
           Lo que <span className="font-extrabold">Nuestros Clientes</span>
@@ -101,9 +110,8 @@ export default function Testimonials() {
               <article
                 key={s.id}
                 data-slide="true"
-                className="
-                  snap-center shrink-0
-                  w-[90vw] sm:w-[85vw] md:w-[min(900px,85vw)]
+                className="snap-center shrink-0
+                  w-[75vw] sm:w-[68vw] md:w-[min(650px,68vw)]
                   rounded-[16px] overflow-hidden relative
                   bg-black/30 backdrop-blur-md
                   shadow-[0_12px_30px_rgba(0,0,0,0.1)]
@@ -117,16 +125,13 @@ export default function Testimonials() {
 
                 {/* 2 columnas que se adaptan */}
                 <div
-                  className="
-                    grid items-stretch h-full
+                  className="grid items-stretch h-full
                     gap-4 p-4
                     grid-cols-1 md:grid-cols-[300px_1fr]
-                    md:gap-5 md:p-5
-                  "
+                    md:gap-5 md:p-5"
                 >
                   {/* Columna izquierda: chat */}
-                  <div className="
-                      h-full rounded-[clamp(14px,1.6vw,20px)] bg-white
+                  <div className="h-full rounded-[clamp(14px,1.6vw,20px)] bg-white
                       ring-1 ring-black/5 overflow-hidden
                       flex items-center justify-center
                     ">
@@ -138,15 +143,11 @@ export default function Testimonials() {
                   </div>
 
                   {/* Columna derecha: texto con degradado */}
-                  <div className="
-                      relative h-full rounded-[clamp(14px,1.6vw,20px)]
+                  <div className="relative h-full rounded-[clamp(14px,1.6vw,20px)]
                       overflow-hidden
                     ">
-                    <div className="
-                        absolute inset-0
-                         " />
-                    <div className="
-                        relative h-full flex flex-col justify-between
+                    <div className="absolute inset-0" />
+                    <div className="relative h-full flex flex-col justify-between
                         p-5 gap-4
                       ">
                       {/* encabezado */}
@@ -177,12 +178,10 @@ export default function Testimonials() {
                           {s.lines.map((l, i) => (
                             <p
                               key={i}
-                              className={`
-                                text-white
+                              className={`text-white
                                 text-[clamp(15px,1.8vw,18px)]
                                 leading-[clamp(22px,2.4vw,28px)]
-                                ${i === s.lines.length - 1 ? "font-extrabold" : "font-semibold"}
-                              `}
+                                ${i === s.lines.length - 1 ? "font-extrabold" : "font-semibold"}`}
                             >
                               {l}
                             </p>
@@ -192,9 +191,9 @@ export default function Testimonials() {
 
                       {/* ubicación al pie */}
                       <div className="mt-6 pt-4 border-t border-gray-600 flex items-center gap-2
-                                      text-gray-300 text-sm">
-                        <MapPin className="w-[clamp(14px,1.6vw,16px] h-[clamp(14px,1.6vw,16px)] text-gray-300" />
-                        {s.location}
+                                      text-gray-300 text-[clamp(12px,1.2vw,14px)] sm:text-sm">
+                        <MapPin className="w-[clamp(14px,1.6vw,16px)] h-[clamp(14px,1.6vw,16px)] text-gray-300" />
+                        <span className="block sm:inline">{s.location}</span>
                       </div>
                     </div>
                   </div>
@@ -222,6 +221,16 @@ export default function Testimonials() {
           </button>
         </div>
       </div>
+
+      {/* Estilos específicos para dispositivos móviles */}
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .text-white {
+            font-size: 14px !important; /* Reducir tamaño de texto solo en móvil */
+            line-height: 1.4;
+          }
+        }
+      `}</style>
     </section>
   );
 }
