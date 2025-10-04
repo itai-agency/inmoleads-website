@@ -14,7 +14,9 @@ const Services = () => {
 
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           <Card className="p-10 md:p-12 bg-[#F26120] text-white rounded-[36px] border-0 shadow-xl space-y-8">
-            <h3 className="text-3xl font-bold text-center pt-4 text-white">Gestión de Leads</h3>
+            <h3 
+            style={{ color: "#fff" }}
+            className="text-3xl font-bold text-center pt-4">Gestión de Leads</h3>
 
             <ul className="space-y-8 text-lg leading-relaxed">
               <li className="flex items-start gap-4">
@@ -39,7 +41,9 @@ const Services = () => {
           </Card>
 
           <Card className="p-10 md:p-12 bg-[#232833] text-white rounded-[36px] border-0 shadow-xl space-y-8">
-            <h3 className="text-3xl font-bold text-center text-white">Marketing digital para flipping inmobiliario</h3>
+            <h3 
+            style={{ color: "#fff" }}
+            className="text-3xl font-bold text-center">Marketing digital para flipping inmobiliario</h3>
 
             <ul className="space-y-5 text-lg leading-relaxed">
               <li className="flex items-start gap-4">

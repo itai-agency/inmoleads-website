@@ -14,7 +14,9 @@ const Footer = () => {
   return (
     <footer className="bg-[#1A1A1A] text-white py-12 font-montserrat">
       <div className="container mx-auto px-6 text-center">
-        <h3 className="text-lg mb-2 font-bold text-white">Queremos saber de ti</h3>
+        <h3 
+        style={{ color: "#ffffff", fontWeight: "7" }}
+        className="text-3x1 md:text-4xl">Queremos saber de ti</h3>
         <h2
           className="text-3xl md:text-4xl font-bold mb-10"
           style={{ color: ORANGE }}

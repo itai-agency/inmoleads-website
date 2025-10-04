@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { MapPin, Building } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
 
 const Hero = () => {
@@ -10,8 +8,12 @@ const Hero = () => {
     >
       {/* Background image layer */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroBackground})`, backgroundPositionY: "100%" }}
+        className="absolute inset-0 bg-cover bg-center md:bg-center"
+        style={{
+          backgroundImage: `url(${heroBackground})`,
+          backgroundPositionY: "100%",
+          backgroundPositionX: "70%"
+        }}
       />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -26,10 +28,15 @@ const Hero = () => {
               max-w-2xl mx-auto md:mx-0
             "
           >
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight animate-fade-in text-white">
+            <h1
+              style={{ color: "#fff" }}
+              className="font-bold leading-[1.1] text-[clamp(2.25rem,8vw,3rem)] md:text-5xl"
+            >
               Aliados estratégicos en el flipping inmobiliario
             </h1>
-            <p className="text-lg md:text-xl text-primary-foreground/95 max-w-xl">
+            <p 
+            style={{ fontWeight: "510" }}
+            className="text-lg md:text-xl text-primary-foreground/95 max-w-xl">
               Generamos leads calificados, maximizamos tus inversiones y convertimos cada oportunidad en rentabilidad.
             </p>
 

@@ -73,14 +73,14 @@ const Navigation = () => {
             ))}
           </div>
 
-          <div className="flex flex-1 justify-end md:hidden">
+          <div className="flex flex-1 justify-end md:hidden mb-1">
             <Button 
               size="sm" 
-              className="rounded-full"
+              className="sm:w-auto sm:px-8 inline-flex items-center justify-center rounded-full px-6 py-3 font-bold text-white shadow-[0_6px_0_rgba(0,0,0,0.25)] active:translate-y-[2px] active:shadow-[0_4px_0_rgba(0,0,0,0.25)]"
               onClick={toggleMenu}
               aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
             >
-              {isMenuOpen ? 'Cerrar' : 'Menú'}
+              {isMenuOpen ? 'Menú' : 'Menú'}
             </Button>
           </div>
 

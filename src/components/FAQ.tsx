@@ -34,7 +34,9 @@ const FAQ = () => {
   return (
     <section id="preguntas-frecuentes" className="py-24 bg-[#2F3641] font-montserrat">
       <div className="container mx-auto px-6 max-w-3xl">
-        <h2 className="text-3xl lg:text-4xl font-bold text-white mb-12">
+        <h2 
+        style={{ color: "#fff" }}
+        className="text-3xl lg:text-4xl font-bold mb-12">
           Preguntas frecuentes
         </h2>
 
@@ -80,7 +82,7 @@ const FAQ = () => {
               <div
                 className="
                   px-8 pb-4 pt-0
-                  text-[#E85C03]
+                  text-[#000000]
                   text-sm md:text-base
                   leading-relaxed
                   max-h-0 opacity-0

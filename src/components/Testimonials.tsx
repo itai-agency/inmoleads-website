@@ -21,7 +21,7 @@ const SLIDES: Slide[] = [
     role: "Bhaz Inmobiliaria",
     location: "México, Tijuana",
     lines: [
-      "Nos encantó el servicio y los resultados que está teniendo…",
+      "Nos encantó el servicio y los resultados que está teniendo... No nos vamos a dar abasto",
     ],
     mediaSrc: captura1,
   },
@@ -190,7 +190,7 @@ export default function Testimonials() {
                       </div>
 
                       {/* ubicación al pie */}
-                      <div className="mt-6 pt-4 border-t border-gray-600 flex items-center gap-2
+                      <div className="mt-6 pt-3 border-t border-gray-600 flex items-center gap-2
                                       text-gray-300 text-[clamp(12px,1.2vw,14px)] sm:text-sm">
                         <MapPin className="w-[clamp(14px,1.6vw,16px)] h-[clamp(14px,1.6vw,16px)] text-gray-300" />
                         <span className="block sm:inline">{s.location}</span>
