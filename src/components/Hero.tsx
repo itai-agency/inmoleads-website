@@ -46,7 +46,7 @@ const Hero = () => {
                 CON PRESENCIA EN
               </div>
 
-              <div className="bg-background rounded-3xl p-8 shadow-2xl">
+              <div className="bg-background rounded-xl p-8 shadow-2xl">
                 <div className="flex items-center gap-8">
                   <div className="text-center">
                     <div className="text-5xl font-bold text-primary">14</div>

@@ -31,7 +31,7 @@ const About = () => {
               <img
                 src={image}
                 alt=""
-                className="w-full h-auto rounded-[28px] object-contain"
+                className="w-full h-auto rounded-xl object-contain"
                 loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"
                 sizes="(max-width: 768px) 100vw"
@@ -45,7 +45,7 @@ const About = () => {
           {highlights.map((image, index) => (
             <div
               key={index}
-              className={`relative rounded-[28px] overflow-hidden transition-all duration-500 ease-in-out flex items-center justify-center ${
+              className={`relative rounded-xl overflow-hidden transition-all duration-500 ease-in-out flex items-center justify-center ${
                 hoveredIndex === index ? "w-1/2 md:w-2/3" : "w-1/8 md:w-1/9"
               }`}
               onMouseEnter={() => handleMouseEnter(index)}

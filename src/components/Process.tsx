@@ -42,7 +42,7 @@ const Process = () => {
               key={step.alt}
               className={`flex flex-col items-start ${index === 1 ? "md:translate-y-12" : ""}`}
             >
-              <div className="w-full overflow-hidden rounded-[36px] border border-white/10 bg-white/5 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+              <div className="w-full overflow-hidden rounded-xl">
                 <img src={step.image} alt={step.alt} className="h-full w-full object-cover" />
               </div>
               <p className="mt-6 text-base text-white/85 leading-relaxed">

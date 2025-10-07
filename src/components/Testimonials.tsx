@@ -223,7 +223,7 @@ export default function Testimonials() {
       </div>
 
       {/* Estilos específicos para dispositivos móviles */}
-      <style jsx>{`
+      <style>{`
         @media (max-width: 768px) {
           .text-white {
             font-size: 14px !important; /* Reducir tamaño de texto solo en móvil */
