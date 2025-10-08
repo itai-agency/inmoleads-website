@@ -32,10 +32,10 @@ const items = [
 
 const FAQ = () => {
   return (
-    <section id="preguntas-frecuentes" className="py-24 bg-[#2F3641] font-montserrat">
+    <section id="preguntas-frecuentes" className="py-24 bg-gray-300 font-montserrat">
       <div className="container mx-auto px-6 max-w-3xl">
         <h2 
-        style={{ color: "#fff" }}
+        style={{ color: "#000" }}
         className="text-3xl lg:text-4xl font-bold mb-12">
           Preguntas frecuentes
         </h2>
