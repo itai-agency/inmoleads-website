@@ -1,22 +1,19 @@
-import procesoUno from "@/assets/PROCESO_1.png";
-import procesoDos from "@/assets/PROCESO_2.png";
-import procesoTres from "@/assets/PROCESO_3.png";
+import procesoUno from "@/assets/1.png";
+import procesoDos from "@/assets/2.png";
+import procesoTres from "@/assets/3.png";
 
 const steps = [
   {
     image: procesoUno,
     alt: "Atracción precisa",
-    description: "Generamos leads calificados que realmente quieren invertir."
   },
   {
     image: procesoDos,
     alt: "Filtrado inteligente",
-    description: "Seleccionamos prospectos listos para cerrar, sin perder tiempo."
   },
   {
     image: procesoTres,
     alt: "Conversión efectiva",
-    description: "Se organizan contactos, se agendan citas y se entregan prospectos para cerrar ventas."
   }
 ];
 
@@ -45,9 +42,6 @@ const Process = () => {
               <div className="w-full overflow-hidden rounded-xl">
                 <img src={step.image} alt={step.alt} className="h-full w-full object-cover" />
               </div>
-              <p className="mt-6 text-base text-white/85 leading-relaxed">
-                {step.description}
-              </p>
             </div>
           ))}
         </div>
