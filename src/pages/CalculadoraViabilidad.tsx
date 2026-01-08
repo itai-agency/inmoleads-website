@@ -6,7 +6,6 @@ import ExpenseRow from "@/components/calculadora/ExpenseRow";
 import { FileDown, Sparkles, Loader2, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import jsPDF from "jspdf";
-import logoImage from "@/assets/Logotipo.png";
 
 interface Expense {
   id: string;
@@ -67,8 +66,10 @@ const CalculadoraViabilidad = () => {
 
     const totalPercentage = salePrice > 0 ? (totalExpenses / salePrice) * 100 : 0;
     
+    // Verificar si hay datos suficientes para mostrar clasificación
     const hasData = salePrice > 0 && totalExpenses > 0;
     
+    // Clasificación: 'excellent' (>20%), 'viable' (>10%), 'caution' (0-10%), 'not-viable' (<0)
     let classification: 'pending' | 'excellent' | 'viable' | 'caution' | 'not-viable' = 'pending';
     if (hasData) {
       if (superavitDeficit <= 0) {
@@ -106,12 +107,14 @@ const CalculadoraViabilidad = () => {
   };
 
   const generateAIInsight = () => {
+    // No generar insight si no hay datos
     if (!calculations.hasData) {
       return;
     }
     
     setIsGeneratingInsight(true);
     
+    // Simular delay de IA
     setTimeout(() => {
       const { superavitDeficit, marginBenefit, roi, totalExpenses, isViable } = calculations;
       
@@ -140,6 +143,7 @@ const CalculadoraViabilidad = () => {
     const margin = 20;
     let y = 20;
     
+    // Función helper para obtener colores según clasificación
     const getClassificationColor = () => {
       switch (calculations.classification) {
         case 'excellent': return { r: 34, g: 139, b: 34, bg: [220, 252, 231] };
@@ -162,16 +166,12 @@ const CalculadoraViabilidad = () => {
     
     const colors = getClassificationColor();
 
-    // Header with InmoLeads orange
-    doc.setFillColor(242, 97, 32); // #F26120
-    doc.rect(0, 0, pageWidth, 25, 'F');
-    
+    // Header
     doc.setFontSize(18);
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(255, 255, 255);
-    doc.text("Análisis de Viabilidad - InmoLeads", pageWidth / 2, 15, { align: "center" });
+    doc.text("Análisis de Viabilidad de Flipping Inmobiliario", pageWidth / 2, y, { align: "center" });
     
-    y = 35;
+    y += 8;
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(100);
@@ -185,17 +185,16 @@ const CalculadoraViabilidad = () => {
     })}`, pageWidth / 2, y, { align: "center" });
     
     doc.setTextColor(0);
-    y += 12;
+    y += 15;
 
     // Datos Generales Box
-    doc.setDrawColor(242, 97, 32);
-    doc.setFillColor(255, 247, 243);
+    doc.setDrawColor(200);
+    doc.setFillColor(248, 250, 252);
     doc.roundedRect(margin, y, pageWidth - 2 * margin, 35, 3, 3, 'FD');
     
     y += 8;
     doc.setFontSize(11);
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(35, 40, 51); // #232833
     doc.text("Datos Generales", margin + 5, y);
     
     y += 8;
@@ -213,9 +212,7 @@ const CalculadoraViabilidad = () => {
     // Ingresos Section
     doc.setFontSize(11);
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(242, 97, 32);
     doc.text("Ingresos", margin, y);
-    doc.setTextColor(0);
     y += 7;
     
     doc.setFontSize(9);
@@ -232,21 +229,17 @@ const CalculadoraViabilidad = () => {
     const tableWidth = 95;
     doc.setFontSize(11);
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(242, 97, 32);
     doc.text("Gastos", margin, y);
-    doc.setTextColor(0);
     y += 7;
 
-    // Table Header with InmoLeads orange
-    doc.setFillColor(242, 97, 32);
+    // Table Header
+    doc.setFillColor(241, 245, 249);
     doc.rect(margin, y - 4, tableWidth, 8, 'F');
     doc.setFontSize(8);
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(255, 255, 255);
     doc.text("Concepto", margin + 2, y);
     doc.text("Monto", margin + 65, y, { align: "right" });
     doc.text("% del Total", margin + tableWidth - 2, y, { align: "right" });
-    doc.setTextColor(0);
     y += 6;
 
     // Table Rows
@@ -254,7 +247,7 @@ const CalculadoraViabilidad = () => {
     const startY = y;
     calculations.expensesWithPercentage.forEach((expense, index) => {
       if (index % 2 === 0) {
-        doc.setFillColor(255, 247, 243);
+        doc.setFillColor(248, 250, 252);
         doc.rect(margin, y - 4, tableWidth, 6, 'F');
       }
       
@@ -271,13 +264,11 @@ const CalculadoraViabilidad = () => {
     y += 2;
     doc.setFont("helvetica", "bold");
     doc.setFontSize(8);
-    doc.setFillColor(255, 237, 227);
+    doc.setFillColor(241, 245, 249);
     doc.rect(margin, y - 4, tableWidth, 7, 'F');
     doc.text("Total de Gastos (TG)", margin + 2, y);
     doc.text(formatCurrency(calculations.totalExpenses), margin + 65, y, { align: "right" });
-    doc.setTextColor(242, 97, 32);
     doc.text(`${calculations.totalPercentage.toFixed(2)}%`, margin + tableWidth - 2, y, { align: "right" });
-    doc.setTextColor(0);
 
     // Right side - Resultados Financieros
     const rightX = margin + tableWidth + 5;
@@ -285,14 +276,13 @@ const CalculadoraViabilidad = () => {
     let rightY = startY - 13;
     
     // Resultados Financieros Box
-    doc.setDrawColor(35, 40, 51);
-    doc.setFillColor(35, 40, 51);
+    doc.setDrawColor(200);
+    doc.setFillColor(248, 250, 252);
     doc.roundedRect(rightX, rightY, rightWidth, 52, 3, 3, 'FD');
     
     rightY += 8;
     doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(255, 255, 255);
     doc.text("Resultados Financieros", rightX + 5, rightY);
     
     rightY += 10;
@@ -310,9 +300,9 @@ const CalculadoraViabilidad = () => {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(9);
     doc.text("Superávit / Déficit", rightX + 5, rightY);
-    doc.setTextColor(242, 97, 32);
+    doc.setTextColor(colors.r, colors.g, colors.b);
     doc.text(formatCurrency(calculations.superavitDeficit), rightX + rightWidth - 5, rightY, { align: "right" });
-    doc.setTextColor(255, 255, 255);
+    doc.setTextColor(0);
     
     rightY += 8;
     doc.setFontSize(8);
@@ -323,7 +313,6 @@ const CalculadoraViabilidad = () => {
     rightY += 6;
     doc.text("Retorno de Inversión (ROI)", rightX + 5, rightY);
     doc.text(`${calculations.roi.toFixed(2)}%`, rightX + rightWidth - 5, rightY, { align: "right" });
-    doc.setTextColor(0);
 
     // Clasificación de Viabilidad
     rightY += 10;
@@ -341,28 +330,24 @@ const CalculadoraViabilidad = () => {
     // AI Insight
     if (aiInsight) {
       rightY += 25;
-      doc.setFillColor(255, 247, 243);
+      doc.setFillColor(248, 250, 252);
       doc.roundedRect(rightX, rightY, rightWidth, 35, 3, 3, 'FD');
       
       doc.setFontSize(10);
       doc.setFont("helvetica", "bold");
-      doc.setTextColor(242, 97, 32);
       doc.text("Insight IA", rightX + 5, rightY + 8);
       
       doc.setFontSize(7);
       doc.setFont("helvetica", "normal");
-      doc.setTextColor(0);
       const cleanInsight = aiInsight.replace(/[🎯✅⚠️🚫]/g, '').trim();
       const splitInsight = doc.splitTextToSize(cleanInsight, rightWidth - 10);
       doc.text(splitInsight.slice(0, 5), rightX + 5, rightY + 15);
     }
 
     // Footer
-    doc.setFillColor(35, 40, 51);
-    doc.rect(0, 280, pageWidth, 17, 'F');
     doc.setFontSize(8);
-    doc.setTextColor(255, 255, 255);
-    doc.text("inmoleads.pro - Aliados estratégicos en el flipping inmobiliario", pageWidth / 2, 290, { align: "center" });
+    doc.setTextColor(150);
+    doc.text("Documento generado automáticamente - inmoleads.pro", pageWidth / 2, 285, { align: "center" });
 
     // Download
     const fileName = propertyData.fileNumber 
@@ -372,366 +357,344 @@ const CalculadoraViabilidad = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Navigation Bar */}
-      <nav className="fixed top-4 left-0 right-0 z-50">
-        <div className="container mx-auto px-3 md:px-6">
-          <div className="mx-auto flex w-full max-w-screen-2xl items-center justify-between gap-6 rounded-full border border-border/40 bg-background/95 px-8 py-2 shadow-lg shadow-primary/10 backdrop-blur">
-            <Link to="/" className="flex items-center gap-2 text-[#F26120] hover:text-[#F26120]/80 transition-colors font-semibold">
-              <ArrowLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">Volver al inicio</span>
-            </Link>
-            
-            <div className="flex shrink-0 items-center justify-center">
-              <img
-                src={logoImage}
-                alt="Inmo Leads"
-                className="h-10 w-auto md:h-12"
-              />
-            </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-orange-50/30 to-slate-100 p-4 md:p-8">
+      <div className="max-w-6xl mx-auto space-y-6">
+        {/* Back Button */}
+        <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-4">
+          <ArrowLeft className="w-4 h-4" />
+          <span>Volver al inicio</span>
+        </Link>
 
-            <div className="text-sm font-semibold text-[#F26120]">
-              Calculadora
-            </div>
-          </div>
+        {/* Header */}
+        <div className="text-center mb-8 animate-fade-in">
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+            Análisis de Viabilidad de Flipping Inmobiliario
+          </h1>
+          <p className="text-muted-foreground">
+            Calculadora profesional para inversión inmobiliaria
+          </p>
         </div>
-      </nav>
 
-      {/* Main Content */}
-      <div className="pt-24 pb-12 px-4 md:px-8">
-        <div className="max-w-6xl mx-auto space-y-6">
-          {/* Header */}
-          <div className="text-center mb-8 animate-fade-in">
-            <h1 className="text-3xl md:text-4xl font-bold text-[#232833] mb-2">
-              Análisis de Viabilidad de Flipping Inmobiliario
-            </h1>
-            <p className="text-muted-foreground">
-              Calculadora profesional para inversión inmobiliaria
-            </p>
-          </div>
-
-          {/* Status Banner */}
-          <div className={`flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl ${
-            calculations.classification === 'pending' ? 'bg-gray-100 border-2 border-gray-300' :
-            calculations.classification === 'not-viable' ? 'bg-red-50 border-2 border-red-500' :
-            calculations.classification === 'caution' ? 'bg-amber-50 border-2 border-amber-500' :
-            'bg-green-50 border-2 border-green-500'
-          }`}>
-            <span className="text-lg font-semibold text-[#232833]">CLASIFICACIÓN</span>
-            <div className="flex items-center gap-4">
-              {calculations.classification === 'pending' ? (
-                <span className="px-4 py-2 rounded-lg font-bold text-lg bg-gray-200 text-gray-600">
-                  PENDIENTE
+        {/* Status Banner */}
+        <div className={`flex items-center justify-between p-4 rounded-lg ${
+          calculations.classification === 'pending' ? 'bg-muted border-2 border-border' :
+          calculations.classification === 'not-viable' ? 'bg-destructive/20 border-2 border-destructive' :
+          calculations.classification === 'caution' ? 'bg-amber-500/20 border-2 border-amber-500' :
+          'bg-green-500/20 border-2 border-green-500'
+        }`}>
+          <span className="text-lg font-semibold text-foreground">CLASIFICACIÓN</span>
+          <div className="flex items-center gap-4">
+            {calculations.classification === 'pending' ? (
+              <span className="px-4 py-2 rounded font-bold text-lg bg-muted text-muted-foreground">
+                PENDIENTE
+              </span>
+            ) : (
+              <>
+                <span className={`px-4 py-2 rounded font-bold text-lg text-white ${
+                  calculations.classification === 'not-viable' ? 'bg-destructive' :
+                  calculations.classification === 'caution' ? 'bg-amber-500' :
+                  'bg-green-500'
+                }`}>
+                  {calculations.classification === 'not-viable' ? 'NO VIABLE' :
+                   calculations.classification === 'caution' ? 'AJUSTADO' :
+                   calculations.classification === 'excellent' ? 'EXCELENTE' : 'VIABLE'}
                 </span>
-              ) : (
-                <>
-                  <span className={`px-4 py-2 rounded-lg font-bold text-lg text-white ${
-                    calculations.classification === 'not-viable' ? 'bg-red-500' :
-                    calculations.classification === 'caution' ? 'bg-amber-500' :
-                    'bg-green-500'
-                  }`}>
-                    {calculations.classification === 'not-viable' ? 'NO VIABLE' :
-                     calculations.classification === 'caution' ? 'AJUSTADO' :
-                     calculations.classification === 'excellent' ? 'EXCELENTE' : 'VIABLE'}
-                  </span>
-                  <span className={`text-2xl font-mono font-bold ${
-                    calculations.classification === 'not-viable' ? 'text-red-600' :
-                    calculations.classification === 'caution' ? 'text-amber-600' :
-                    'text-green-600'
-                  }`}>
-                    {formatCurrency(calculations.superavitDeficit)}
-                  </span>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* Datos Generales */}
-          <Card className="p-6 bg-white border border-gray-200 rounded-xl shadow-sm animate-slide-up">
-            <h2 className="text-lg font-semibold text-[#232833] mb-4 pb-2 border-b border-gray-200">
-              Datos Generales
-            </h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-[#232833]">
-                    Cuentahabiente
-                  </label>
-                  <Input
-                    type="text"
-                    value={propertyData.accountHolder}
-                    onChange={(e) => setPropertyData(prev => ({ ...prev, accountHolder: e.target.value }))}
-                    placeholder="Nombre completo"
-                    className="border-gray-300 focus:border-[#F26120] focus:ring-[#F26120]"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-[#232833]">
-                    Dirección
-                  </label>
-                  <Input
-                    type="text"
-                    value={propertyData.address}
-                    onChange={(e) => setPropertyData(prev => ({ ...prev, address: e.target.value }))}
-                    placeholder="Calle, número, ciudad"
-                    className="border-gray-300 focus:border-[#F26120] focus:ring-[#F26120]"
-                  />
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-[#232833]">
-                    Expediente
-                  </label>
-                  <Input
-                    type="text"
-                    value={propertyData.fileNumber}
-                    onChange={(e) => setPropertyData(prev => ({ ...prev, fileNumber: e.target.value }))}
-                    placeholder="EXP-00123"
-                    className="border-gray-300 focus:border-[#F26120] focus:ring-[#F26120]"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-[#232833]">
-                    Colonia
-                  </label>
-                  <Input
-                    type="text"
-                    value={propertyData.neighborhood}
-                    onChange={(e) => setPropertyData(prev => ({ ...prev, neighborhood: e.target.value }))}
-                    placeholder="Nombre de la colonia"
-                    className="border-gray-300 focus:border-[#F26120] focus:ring-[#F26120]"
-                  />
-                </div>
-              </div>
-            </div>
-          </Card>
-
-          <div className="grid lg:grid-cols-3 gap-6">
-            {/* Left Column - Ingresos y Gastos */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* Ingresos */}
-              <Card className="p-6 bg-white border border-gray-200 rounded-xl shadow-sm animate-slide-up">
-                <h2 className="text-lg font-semibold text-[#232833] mb-4 pb-2 border-b border-gray-200">
-                  Ingresos
-                </h2>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-[#232833]">
-                      Precio Venta Estimado (PVE)
-                    </label>
-                    <div className="flex items-center gap-2">
-                      <span className="text-lg font-semibold text-gray-500">$</span>
-                      <Input
-                        type="number"
-                        value={salePrice || ""}
-                        onChange={(e) => setSalePrice(Number(e.target.value) || 0)}
-                        className="text-lg font-mono text-right border-gray-300 focus:border-[#F26120] focus:ring-[#F26120]"
-                        placeholder="2,000,000"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-[#232833]">
-                      Comisión por Intermediación (CFI)
-                    </label>
-                    <div className="flex items-center gap-2">
-                      <Input
-                        type="number"
-                        value={commissionPercentage || ""}
-                        onChange={(e) => setCommissionPercentage(Number(e.target.value) || 0)}
-                        className="text-lg font-mono text-right border-gray-300 focus:border-[#F26120] focus:ring-[#F26120]"
-                        placeholder="5"
-                      />
-                      <span className="text-lg font-semibold text-gray-500">%</span>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-
-              {/* Gastos Table */}
-              <Card className="overflow-hidden bg-white border border-gray-200 rounded-xl shadow-sm animate-slide-up">
-                <div className="bg-[#F26120] px-4 py-3">
-                  <h2 className="text-lg font-semibold text-white">Gastos</h2>
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="bg-[#232833] text-white">
-                        <th className="px-4 py-3 text-left text-sm font-semibold">
-                          Concepto
-                        </th>
-                        <th className="px-4 py-3 text-right text-sm font-semibold">
-                          Monto
-                        </th>
-                        <th className="px-4 py-3 text-right text-sm font-semibold">
-                          % del Total
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {calculations.expensesWithPercentage.map((expense, index) => (
-                        <ExpenseRow
-                          key={expense.id}
-                          name={expense.name}
-                          amount={expense.amount}
-                          percentage={expense.percentage}
-                          onChange={(amount) => updateExpense(expense.id, amount)}
-                          isEven={index % 2 === 0}
-                        />
-                      ))}
-                    </tbody>
-                    <tfoot>
-                      <tr className="bg-[#FFF3ED] border-t-2 border-[#F26120]">
-                        <td className="px-4 py-3 font-bold text-[#232833]">
-                          Total de Gastos (TG)
-                        </td>
-                        <td className="px-4 py-3 text-right font-mono font-bold text-[#232833]">
-                          {formatCurrency(calculations.totalExpenses)}
-                        </td>
-                        <td className="px-4 py-3 text-right font-mono font-bold text-[#F26120]">
-                          {calculations.totalPercentage.toFixed(2)}%
-                        </td>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-              </Card>
-            </div>
-
-            {/* Right Column - Results */}
-            <div className="space-y-6">
-              {/* Resultados Financieros */}
-              <Card className="p-6 bg-[#232833] text-white rounded-xl shadow-lg animate-slide-up">
-                <h3 className="text-lg font-semibold mb-4 border-b border-white/20 pb-2">
-                  Resultados Financieros
-                </h3>
-                
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center py-2 border-b border-white/10">
-                    <span className="text-sm text-white/70">Base de Cálculo (BC)</span>
-                    <span className="font-mono font-semibold">
-                      {formatCurrency(calculations.baseCalculo)}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-center py-2 border-b border-white/10">
-                    <span className="text-sm text-white/70">Total de Gastos (TG)</span>
-                    <span className="font-mono font-semibold">
-                      {formatCurrency(calculations.totalExpenses)}
-                    </span>
-                  </div>
-
-                  <div className={`flex justify-between items-center py-3 px-3 rounded-lg ${
-                    calculations.classification === 'pending' ? 'bg-white/10' :
-                    calculations.classification === 'not-viable' ? 'bg-red-500/30' :
-                    calculations.classification === 'caution' ? 'bg-amber-500/30' :
-                    'bg-green-500/30'
-                  }`}>
-                    <span className="font-semibold">Superávit / Déficit</span>
-                    <span className={`font-mono font-bold text-lg ${
-                      calculations.classification === 'pending' ? 'text-white/50' :
-                      calculations.classification === 'not-viable' ? 'text-red-300' :
-                      calculations.classification === 'caution' ? 'text-amber-300' :
-                      'text-green-300'
-                    }`}>
-                      {calculations.hasData ? formatCurrency(calculations.superavitDeficit) : '-'}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-center py-2 border-b border-white/10">
-                    <span className="text-sm text-white/70">Margen de Beneficio</span>
-                    <span className="font-mono font-semibold">
-                      {calculations.marginBenefit.toFixed(2)}%
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-center py-2 border-b border-white/10">
-                    <span className="text-sm text-white/70">Retorno de Inversión (ROI)</span>
-                    <span className="font-mono font-semibold">
-                      {calculations.roi.toFixed(2)}%
-                    </span>
-                  </div>
-                </div>
-              </Card>
-
-              {/* Clasificación de Viabilidad */}
-              <Card className={`p-6 rounded-xl animate-slide-up ${
-                calculations.classification === 'pending' ? 'bg-gray-100 border-2 border-gray-300' :
-                calculations.classification === 'not-viable' ? 'bg-red-50 border-2 border-red-500' :
-                calculations.classification === 'caution' ? 'bg-amber-50 border-2 border-amber-500' :
-                'bg-green-50 border-2 border-green-500'
-              }`}>
-                <h3 className="text-sm font-medium text-gray-600 mb-2">
-                  Clasificación de Viabilidad
-                </h3>
-                <p className={`text-3xl font-bold ${
-                  calculations.classification === 'pending' ? 'text-gray-500' :
-                  calculations.classification === 'not-viable' ? 'text-red-600' :
+                <span className={`text-2xl font-mono font-bold ${
+                  calculations.classification === 'not-viable' ? 'text-destructive' :
                   calculations.classification === 'caution' ? 'text-amber-600' :
                   'text-green-600'
                 }`}>
-                  {calculations.classification === 'pending' ? 'Pendiente' :
-                   calculations.classification === 'not-viable' ? 'No Viable' :
-                   calculations.classification === 'caution' ? 'Ajustado' :
-                   calculations.classification === 'excellent' ? 'Excelente' : 'Viable'}
-                </p>
-              </Card>
+                  {formatCurrency(calculations.superavitDeficit)}
+                </span>
+              </>
+            )}
+          </div>
+        </div>
 
-              {/* AI Insight */}
-              <Card className="p-6 bg-white border border-gray-200 rounded-xl shadow-sm animate-slide-up">
-                <div className="flex items-center justify-between mb-4 border-b border-gray-200 pb-2">
-                  <h3 className="text-lg font-semibold text-[#232833] flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-[#F26120]" />
-                    Insight IA
-                  </h3>
-                  <Button 
-                    onClick={generateAIInsight} 
-                    disabled={isGeneratingInsight || !calculations.hasData}
-                    size="sm"
-                    variant="outline"
-                    className="border-[#F26120] text-[#F26120] hover:bg-[#F26120] hover:text-white"
-                  >
-                    {isGeneratingInsight ? (
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                    ) : (
-                      "Generar"
-                    )}
-                  </Button>
-                </div>
-                
-                {!calculations.hasData ? (
-                  <p className="text-sm text-gray-500 italic">
-                    Ingresa el precio de venta y al menos un gasto para generar el análisis.
-                  </p>
-                ) : aiInsight ? (
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    {aiInsight}
-                  </p>
-                ) : (
-                  <p className="text-sm text-gray-500 italic">
-                    Haz clic en "Generar" para obtener un análisis con IA.
-                  </p>
-                )}
-              </Card>
-
-              {/* Download PDF Button */}
-              <Button 
-                onClick={generatePDF} 
-                className="w-full py-6 text-lg font-semibold bg-[#F26120] hover:bg-[#F26120]/90 text-white rounded-xl shadow-lg"
-                size="lg"
-                disabled={!calculations.hasData}
-              >
-                <FileDown className="w-5 h-5 mr-2" />
-                Descargar PDF
-              </Button>
+        {/* Datos Generales */}
+        <Card className="card-glass p-6 animate-slide-up">
+          <h2 className="text-lg font-semibold text-foreground mb-4 pb-2 border-b border-border">
+            Datos Generales
+          </h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">
+                  Cuentahabiente
+                </label>
+                <Input
+                  type="text"
+                  value={propertyData.accountHolder}
+                  onChange={(e) => setPropertyData(prev => ({ ...prev, accountHolder: e.target.value }))}
+                  placeholder="Nombre completo"
+                  className="bg-input"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">
+                  Dirección
+                </label>
+                <Input
+                  type="text"
+                  value={propertyData.address}
+                  onChange={(e) => setPropertyData(prev => ({ ...prev, address: e.target.value }))}
+                  placeholder="Calle, número, ciudad"
+                  className="bg-input"
+                />
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">
+                  Expediente
+                </label>
+                <Input
+                  type="text"
+                  value={propertyData.fileNumber}
+                  onChange={(e) => setPropertyData(prev => ({ ...prev, fileNumber: e.target.value }))}
+                  placeholder="EXP-00123"
+                  className="bg-input"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">
+                  Colonia
+                </label>
+                <Input
+                  type="text"
+                  value={propertyData.neighborhood}
+                  onChange={(e) => setPropertyData(prev => ({ ...prev, neighborhood: e.target.value }))}
+                  placeholder="Nombre de la colonia"
+                  className="bg-input"
+                />
+              </div>
             </div>
           </div>
+        </Card>
 
-          {/* Footer */}
-          <div className="text-center text-sm text-gray-500 pt-8 border-t border-gray-200">
-            Documento generado automáticamente - inmoleads.pro
+        <div className="grid lg:grid-cols-3 gap-6">
+          {/* Left Column - Ingresos y Gastos */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Ingresos */}
+            <Card className="card-glass p-6 animate-slide-up">
+              <h2 className="text-lg font-semibold text-foreground mb-4 pb-2 border-b border-border">
+                Ingresos
+              </h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">
+                    Precio Venta Estimado (PVE)
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg font-semibold text-muted-foreground">$</span>
+                    <Input
+                      type="number"
+                      value={salePrice || ""}
+                      onChange={(e) => setSalePrice(Number(e.target.value) || 0)}
+                      className="input-financial text-lg"
+                      placeholder="2,000,000"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">
+                    Comisión por Intermediación (CFI)
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <Input
+                      type="number"
+                      value={commissionPercentage || ""}
+                      onChange={(e) => setCommissionPercentage(Number(e.target.value) || 0)}
+                      className="input-financial text-lg"
+                      placeholder="5"
+                    />
+                    <span className="text-lg font-semibold text-muted-foreground">%</span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            {/* Gastos Table */}
+            <Card className="card-glass overflow-hidden animate-slide-up">
+              <div className="table-header px-4 py-3">
+                <h2 className="text-lg font-semibold">Gastos</h2>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-secondary border-b border-border">
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-secondary-foreground">
+                        Concepto
+                      </th>
+                      <th className="px-4 py-3 text-right text-sm font-semibold text-secondary-foreground">
+                        Monto
+                      </th>
+                      <th className="px-4 py-3 text-right text-sm font-semibold text-secondary-foreground">
+                        % del Total
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {calculations.expensesWithPercentage.map((expense, index) => (
+                      <ExpenseRow
+                        key={expense.id}
+                        name={expense.name}
+                        amount={expense.amount}
+                        percentage={expense.percentage}
+                        onChange={(amount) => updateExpense(expense.id, amount)}
+                        isEven={index % 2 === 0}
+                      />
+                    ))}
+                  </tbody>
+                  <tfoot>
+                    <tr className="bg-primary/10 border-t-2 border-primary">
+                      <td className="px-4 py-3 font-bold text-foreground">
+                        Total de Gastos (TG)
+                      </td>
+                      <td className="px-4 py-3 text-right font-mono font-bold text-foreground">
+                        {formatCurrency(calculations.totalExpenses)}
+                      </td>
+                      <td className="px-4 py-3 text-right font-mono font-bold text-primary">
+                        {calculations.totalPercentage.toFixed(2)}%
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </Card>
           </div>
+
+          {/* Right Column - Results */}
+          <div className="space-y-6">
+            {/* Resultados Financieros */}
+            <Card className="card-glass p-6 animate-slide-up">
+              <h3 className="text-lg font-semibold text-foreground mb-4 border-b border-border pb-2">
+                Resultados Financieros
+              </h3>
+              
+              <div className="space-y-3">
+                <div className="flex justify-between items-center py-2 border-b border-border/30">
+                  <span className="text-sm text-muted-foreground">Base de Cálculo (BC)</span>
+                  <span className="font-mono font-semibold text-foreground">
+                    {formatCurrency(calculations.baseCalculo)}
+                  </span>
+                </div>
+
+                <div className="flex justify-between items-center py-2 border-b border-border/30">
+                  <span className="text-sm text-muted-foreground">Total de Gastos (TG)</span>
+                  <span className="font-mono font-semibold text-foreground">
+                    {formatCurrency(calculations.totalExpenses)}
+                  </span>
+                </div>
+
+                <div className={`flex justify-between items-center py-3 px-3 rounded-lg ${
+                  calculations.classification === 'pending' ? 'bg-muted' :
+                  calculations.classification === 'not-viable' ? 'bg-destructive/20' :
+                  calculations.classification === 'caution' ? 'bg-amber-500/20' :
+                  'bg-green-500/20'
+                }`}>
+                  <span className="font-semibold text-foreground">Superávit / Déficit</span>
+                  <span className={`font-mono font-bold text-lg ${
+                    calculations.classification === 'pending' ? 'text-muted-foreground' :
+                    calculations.classification === 'not-viable' ? 'text-destructive' :
+                    calculations.classification === 'caution' ? 'text-amber-600' :
+                    'text-green-600'
+                  }`}>
+                    {calculations.hasData ? formatCurrency(calculations.superavitDeficit) : '-'}
+                  </span>
+                </div>
+
+                <div className="flex justify-between items-center py-2 border-b border-border/30">
+                  <span className="text-sm text-muted-foreground">Margen de Beneficio</span>
+                  <span className="font-mono font-semibold text-foreground">
+                    {calculations.marginBenefit.toFixed(2)}%
+                  </span>
+                </div>
+
+                <div className="flex justify-between items-center py-2 border-b border-border/30">
+                  <span className="text-sm text-muted-foreground">Retorno de Inversión (ROI)</span>
+                  <span className="font-mono font-semibold text-foreground">
+                    {calculations.roi.toFixed(2)}%
+                  </span>
+                </div>
+              </div>
+            </Card>
+
+            {/* Clasificación de Viabilidad */}
+            <Card className={`p-6 animate-slide-up ${
+              calculations.classification === 'pending' ? 'bg-muted/50 border-2 border-border' :
+              calculations.classification === 'not-viable' ? 'bg-destructive/10 border-2 border-destructive' :
+              calculations.classification === 'caution' ? 'bg-amber-500/10 border-2 border-amber-500' :
+              'bg-green-500/10 border-2 border-green-500'
+            }`}>
+              <h3 className="text-sm font-medium text-muted-foreground mb-2">
+                Clasificación de Viabilidad
+              </h3>
+              <p className={`text-3xl font-bold ${
+                calculations.classification === 'pending' ? 'text-muted-foreground' :
+                calculations.classification === 'not-viable' ? 'text-destructive' :
+                calculations.classification === 'caution' ? 'text-amber-600' :
+                'text-green-600'
+              }`}>
+                {calculations.classification === 'pending' ? 'Pendiente' :
+                 calculations.classification === 'not-viable' ? 'No Viable' :
+                 calculations.classification === 'caution' ? 'Ajustado' :
+                 calculations.classification === 'excellent' ? 'Excelente' : 'Viable'}
+              </p>
+            </Card>
+
+            {/* AI Insight */}
+            <Card className="card-glass p-6 animate-slide-up">
+              <div className="flex items-center justify-between mb-4 border-b border-border pb-2">
+                <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-primary" />
+                  Insight IA
+                </h3>
+                <Button 
+                  onClick={generateAIInsight} 
+                  disabled={isGeneratingInsight || !calculations.hasData}
+                  size="sm"
+                  variant="outline"
+                >
+                  {isGeneratingInsight ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    "Generar"
+                  )}
+                </Button>
+              </div>
+              
+              {!calculations.hasData ? (
+                <p className="text-sm text-muted-foreground italic">
+                  Ingresa el precio de venta y al menos un gasto para generar el análisis.
+                </p>
+              ) : aiInsight ? (
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {aiInsight}
+                </p>
+              ) : (
+                <p className="text-sm text-muted-foreground italic">
+                  Haz clic en "Generar" para obtener un análisis con IA.
+                </p>
+              )}
+            </Card>
+
+            {/* Download PDF Button */}
+            <Button 
+              onClick={generatePDF} 
+              className="w-full py-6 text-lg font-semibold"
+              size="lg"
+              disabled={!calculations.hasData}
+            >
+              <FileDown className="w-5 h-5 mr-2" />
+              Descargar PDF
+            </Button>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="text-center text-sm text-muted-foreground pt-8 border-t border-border">
+          Documento generado automáticamente para expediente - inmoleads.pro
         </div>
       </div>
     </div>
@@ -739,3 +702,4 @@ const CalculadoraViabilidad = () => {
 };
 
 export default CalculadoraViabilidad;
+
