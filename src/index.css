@@ -110,4 +110,65 @@ All colors MUST be HSL.
   label {
     @apply font-body;
   }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  }
+}
+
+@layer components {
+  .card-glass {
+    @apply bg-card/80 backdrop-blur-sm border border-border/50 rounded-lg;
+  }
+
+  .input-financial {
+    @apply bg-input border-border/50 text-foreground font-mono text-right;
+  }
+
+  .table-header {
+    background: var(--gradient-hero);
+    @apply text-primary-foreground font-semibold;
+  }
+
+  .table-row-alt:nth-child(even) {
+    @apply bg-muted/30;
+  }
+
+  .status-superavit {
+    @apply bg-green-500 text-white font-bold;
+  }
+
+  .status-deficit {
+    @apply bg-destructive text-destructive-foreground font-bold;
+  }
+
+  .highlight-box {
+    @apply border-2 border-accent bg-accent/10 rounded-lg p-4;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
