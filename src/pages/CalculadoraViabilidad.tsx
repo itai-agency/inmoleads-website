@@ -106,6 +106,22 @@ const CalculadoraViabilidad = () => {
     }).format(value);
   };
 
+  const formatNumberInput = (value: number) => {
+    if (!value) {
+      return "";
+    }
+    return new Intl.NumberFormat("es-MX", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2,
+    }).format(value);
+  };
+
+  const parseNumberInput = (value: string) => {
+    const sanitized = value.replace(/,/g, "");
+    const parsed = Number(sanitized);
+    return Number.isFinite(parsed) ? parsed : 0;
+  };
+
   const generateAIInsight = () => {
     // No generar insight si no hay datos
     if (!calculations.hasData) {
@@ -339,7 +355,10 @@ const CalculadoraViabilidad = () => {
       
       doc.setFontSize(7);
       doc.setFont("helvetica", "normal");
-      const cleanInsight = aiInsight.replace(/[🎯✅⚠️🚫]/g, '').trim();
+      const cleanInsight = aiInsight
+        .replace(/\uFE0F/gu, "")
+        .replace(/[\u{1F3AF}\u2705\u26A0\u{1F6AB}]/gu, "")
+        .trim();
       const splitInsight = doc.splitTextToSize(cleanInsight, rightWidth - 10);
       doc.text(splitInsight.slice(0, 5), rightX + 5, rightY + 15);
     }
@@ -488,9 +507,10 @@ const CalculadoraViabilidad = () => {
                   <div className="flex items-center gap-2">
                     <span className="text-lg font-semibold text-muted-foreground">$</span>
                     <Input
-                      type="number"
-                      value={salePrice || ""}
-                      onChange={(e) => setSalePrice(Number(e.target.value) || 0)}
+                      type="text"
+                      inputMode="decimal"
+                      value={formatNumberInput(salePrice)}
+                      onChange={(e) => setSalePrice(parseNumberInput(e.target.value))}
                       className="input-financial text-lg"
                       placeholder="2,000,000"
                     />
