@@ -503,7 +503,7 @@ const CalculadoraViabilidad = () => {
                   <div className="flex items-center gap-2">
                     <Input
                       type="number"
-                      value={commissionPercentage || ""}
+                      value={commissionPercentage ?? ""}
                       onChange={(e) => setCommissionPercentage(Number(e.target.value) || 0)}
                       className="input-financial text-lg"
                       placeholder="5"
