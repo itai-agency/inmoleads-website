@@ -39,7 +39,7 @@ const Hero = () => {
     <section
       id="inicio"
       ref={sectionRef}
-      className="relative flex min-h-screen flex-col overflow-hidden bg-[#edebe5] pt-24"
+      className="relative flex flex-col overflow-hidden bg-[#edebe5] pt-24 lg:min-h-screen"
     >
       {/* studio light + grading */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_-10%,#f6f4ef,transparent_60%)]" />
