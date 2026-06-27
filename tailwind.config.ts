@@ -16,6 +16,9 @@ export default {
       fontFamily: {
         heading: ["Montserrat", "sans-serif"],
         body: ["Montserrat", "sans-serif"],
+        display: ["Bricolage Grotesque", "Montserrat", "sans-serif"],
+        serif: ["Instrument Serif", "ui-serif", "Georgia", "serif"],
+        mono: ["Space Mono", "ui-monospace", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",

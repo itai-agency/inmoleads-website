@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import mapa from "@/assets/mapa.png";
 import logoBg from "@/assets/Logo.png";
+import { Reveal } from "@/components/motion/Motion";
+import SectionLabel from "@/components/SectionLabel";
 
 const ORANGE = "#E85C03";
 
@@ -171,13 +173,22 @@ export default function Contact() {
   return (
     <section
       id="contacto"
-      className="py-10 sm:py-14 md:py-20 bg-[#F4F5F9] font-montserrat"
+      className="relative overflow-hidden bg-[#ECEDE9] py-20 font-montserrat text-[#16181D] md:py-28"
     >
-      <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
-        <div className="grid gap-10 items-start lg:grid-cols-2">
+      <div className="bg-blueprint pointer-events-none absolute inset-0 opacity-60" />
+      <div className="relative mx-auto w-full max-w-[1200px] px-4 sm:px-6">
+        <div className="mb-12 flex flex-col items-center gap-3 text-center">
+          <SectionLabel title="Contacto" />
+          <Reveal delay={0.15}>
+            <p className="font-serif text-2xl italic leading-tight text-[#16181D]/65 md:text-3xl">
+              Estamos a un mensaje de distancia.
+            </p>
+          </Reveal>
+        </div>
+        <div className="grid gap-12 items-start lg:grid-cols-2">
           {/* Izquierda: mapa + leyendas */}
-          <div className="w-full">
-            <h3 className="text-center font-bold text-black leading-tight mb-4 sm:mb-6 text-[22px] sm:text-[26px] md:text-[28px]">
+          <Reveal className="w-full">
+            <h3 className="text-display text-center font-bold text-[#16181D] leading-tight mb-6 text-[26px] sm:text-[30px] md:text-[34px]">
               Cada vez <br /> más cerca de ti
             </h3>
 
@@ -291,11 +302,11 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Derecha: formulario */}
-          <div className="w-full">
-            <h2 className="text-center font-bold text-black mb-5 sm:mb-6 text-[26px] sm:text-3xl md:text-4xl">
+          <Reveal delay={0.15} className="w-full rounded-[28px] border border-[#16181D]/10 bg-white p-6 shadow-[0_20px_50px_rgba(40,50,65,0.1)] sm:p-8">
+            <h2 className="text-display text-center font-bold text-[#16181D] mb-6 text-[28px] sm:text-3xl md:text-4xl">
               Conecta con nosotros
             </h2>
 
@@ -309,7 +320,7 @@ export default function Contact() {
                   value={form.nombre}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-full border-2 bg-white px-5 py-3 outline-none placeholder:text-black/50"
+                  className="w-full rounded-full border-2 bg-white px-5 py-3 outline-none transition-shadow placeholder:text-black/50 focus:ring-4 focus:ring-[#E85C03]/20"
                   style={{ borderColor: ORANGE }}
                 />
                 <input
@@ -319,7 +330,7 @@ export default function Contact() {
                   value={form.apellido}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-full border-2 bg-white px-5 py-3 outline-none placeholder:text-black/50"
+                  className="w-full rounded-full border-2 bg-white px-5 py-3 outline-none transition-shadow placeholder:text-black/50 focus:ring-4 focus:ring-[#E85C03]/20"
                   style={{ borderColor: ORANGE }}
                 />
               </div>
@@ -331,7 +342,7 @@ export default function Contact() {
                 value={form.email}
                 onChange={handleChange}
                 required
-                className="w-full rounded-full border-2 bg-white px-5 py-3 outline-none placeholder:text-black/50"
+                className="w-full rounded-full border-2 bg-white px-5 py-3 outline-none transition-shadow placeholder:text-black/50 focus:ring-4 focus:ring-[#E85C03]/20"
                 style={{ borderColor: ORANGE }}
               />
 
@@ -342,7 +353,7 @@ export default function Contact() {
                 value={form.telefono}
                 onChange={handleChange}
                 required
-                className="w-full rounded-full border-2 bg-white px-5 py-3 outline-none placeholder:text-black/50"
+                className="w-full rounded-full border-2 bg-white px-5 py-3 outline-none transition-shadow placeholder:text-black/50 focus:ring-4 focus:ring-[#E85C03]/20"
                 style={{ borderColor: ORANGE }}
               />
 
@@ -364,7 +375,7 @@ export default function Contact() {
                 value={form.mensaje}
                 onChange={handleChange}
                 required
-                className="w-full rounded-[32px] border-2 bg-white px-5 py-4 outline-none resize-none placeholder:text-black/50"
+                className="w-full rounded-[32px] border-2 bg-white px-5 py-4 outline-none resize-none transition-shadow placeholder:text-black/50 focus:ring-4 focus:ring-[#E85C03]/20"
                 style={{ borderColor: ORANGE }}
               />
 
@@ -382,14 +393,14 @@ export default function Contact() {
               <div className="pt-1 sm:pt-2 flex">
                 <button
                   type="submit"
-                  className="w-full sm:w-auto sm:px-8 inline-flex items-center justify-center rounded-full px-6 py-3 font-bold text-white shadow-[0_6px_0_rgba(0,0,0,0.25)] active:translate-y-[2px] active:shadow-[0_4px_0_rgba(0,0,0,0.25)]"
+                  className="w-full sm:w-auto sm:px-8 inline-flex items-center justify-center rounded-full px-6 py-3 font-bold text-white shadow-[0_6px_0_rgba(0,0,0,0.25)] transition-transform hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-[0_4px_0_rgba(0,0,0,0.25)]"
                   style={{ backgroundColor: ORANGE }}
                 >
                   Enviar
                 </button>
               </div>
             </form>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

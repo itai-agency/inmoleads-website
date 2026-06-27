@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -86,10 +86,37 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
   body {
     @apply bg-background text-foreground font-body;
     font-weight: 400;
     line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Accessible keyboard focus (WCAG): visible ring on focus-visible only */
+  :focus-visible {
+    outline: 2px solid #e85c03;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Respect users who prefer less motion */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
   }
 
   h1,
@@ -113,6 +140,12 @@ All colors MUST be HSL.
 
   .font-mono {
     font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  }
+
+  /* Dark cinematic scrollbar */
+  ::selection {
+    background: #F26120;
+    color: #fff;
   }
 }
 
@@ -148,6 +181,244 @@ All colors MUST be HSL.
 }
 
 @layer utilities {
+  /* Kinetic / gradient text */
+  .text-gradient-brand {
+    background: linear-gradient(100deg, #F26120 0%, #E85C03 45%, #ff8a3d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .animate-text-gradient {
+    background: linear-gradient(100deg, #F26120, #ff9e57, #E85C03, #F26120);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: textGradient 6s ease infinite;
+  }
+
+  /* Slowly drifting aurora / mesh blobs */
+  .animate-aurora {
+    animation: aurora 14s ease-in-out infinite alternate;
+  }
+
+  .animate-float {
+    animation: float 7s ease-in-out infinite;
+  }
+
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+
+  .animate-marquee-reverse {
+    animation: marquee-reverse 30s linear infinite;
+  }
+
+  .animate-marquee-slow {
+    animation: marquee 55s linear infinite;
+  }
+
+  /* Animated conic / mesh gradient that is always alive */
+  .animate-mesh {
+    background: conic-gradient(
+      from 0deg at 50% 50%,
+      #F26120,
+      #ff9e57,
+      #E85C03,
+      #212733,
+      #F26120
+    );
+    background-size: 200% 200%;
+    animation: meshShift 18s ease-in-out infinite;
+    filter: blur(60px);
+  }
+
+  /* Subtle film-grain / noise overlay */
+  .bg-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  }
+
+  .pause-on-hover:hover {
+    animation-play-state: paused;
+  }
+
+  /* Cinematic hero: slow Ken Burns zoom/pan so a still photo reads as video */
+  .animate-ken-burns {
+    animation: kenBurns 26s ease-in-out infinite alternate;
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  /* Diagonal light sweep that crosses the hero forever */
+  .animate-light-sweep {
+    background: linear-gradient(
+      115deg,
+      transparent 0%,
+      transparent 40%,
+      rgba(255, 255, 255, 0.07) 48%,
+      rgba(255, 180, 120, 0.12) 50%,
+      rgba(255, 255, 255, 0.07) 52%,
+      transparent 60%,
+      transparent 100%
+    );
+    background-size: 250% 250%;
+    animation: lightSweep 9s ease-in-out infinite;
+  }
+
+  /* Rising embers / dust particles */
+  .animate-ember {
+    animation: ember linear infinite;
+    will-change: transform, opacity;
+  }
+
+  /* Big editorial display sizing */
+  .text-display {
+    font-family: "Bricolage Grotesque", Montserrat, sans-serif;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+
+  .font-display {
+    font-family: "Bricolage Grotesque", Montserrat, sans-serif;
+  }
+
+  .label-mono {
+    font-family: "Space Mono", ui-monospace, monospace;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  /* Blueprint / construction grid motif (subtle) */
+  .bg-blueprint {
+    background-image:
+      linear-gradient(rgba(22, 24, 29, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(22, 24, 29, 0.05) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .bg-blueprint-ink {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  /* Architectural ruler tick marks */
+  .ruler-ticks {
+    background-image: repeating-linear-gradient(
+      90deg,
+      rgba(22, 24, 29, 0.28) 0 1px,
+      transparent 1px 26px
+    );
+  }
+  .ruler-ticks-v {
+    background-image: repeating-linear-gradient(
+      0deg,
+      rgba(22, 24, 29, 0.28) 0 1px,
+      transparent 1px 26px
+    );
+  }
+
+  @keyframes kenBurns {
+    0% {
+      transform: scale(1.12) translate3d(2%, 1%, 0);
+    }
+    100% {
+      transform: scale(1.28) translate3d(-3%, -2%, 0);
+    }
+  }
+
+  @keyframes lightSweep {
+    0% {
+      background-position: 200% 0%;
+    }
+    50% {
+      background-position: -50% 0%;
+    }
+    100% {
+      background-position: 200% 0%;
+    }
+  }
+
+  @keyframes ember {
+    0% {
+      transform: translateY(0) translateX(0) scale(1);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 0.7;
+    }
+    100% {
+      transform: translateY(-90vh) translateX(var(--drift, 20px)) scale(1.4);
+      opacity: 0;
+    }
+  }
+
+  @keyframes textGradient {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @keyframes aurora {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(4%, -3%, 0) scale(1.15);
+    }
+    100% {
+      transform: translate3d(-3%, 4%, 0) scale(1.05);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes marquee-reverse {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes meshShift {
+    0%,
+    100% {
+      background-position: 0% 50%;
+      transform: rotate(0deg) scale(1.2);
+    }
+    50% {
+      background-position: 100% 50%;
+      transform: rotate(20deg) scale(1.4);
+    }
+  }
+
   .animate-fade-in {
     animation: fadeIn 0.5s ease-out forwards;
   }
