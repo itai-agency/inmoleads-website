@@ -1,9 +1,22 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ArrowUpRight } from "lucide-react";
 import mapa from "@/assets/mapa.png";
 import logoBg from "@/assets/Logo.png";
 import { Reveal } from "@/components/motion/Motion";
 import SectionLabel from "@/components/SectionLabel";
+import type { ReactNode } from "react";
+
+const inputCls =
+  "w-full border-b border-[#16181D]/20 bg-transparent py-2.5 text-[15px] text-[#16181D] outline-none transition-colors placeholder:text-[#16181D]/30 focus:border-[#E85C03]";
+
+function Field({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <label className="block">
+      <span className="label-mono text-[10px] text-[#16181D]/45">{label}</span>
+      <div className="relative mt-1.5">{children}</div>
+    </label>
+  );
+}
 
 const ORANGE = "#E85C03";
 
@@ -55,14 +68,15 @@ function FancySelect({
         ref={btnRef}
         type="button"
         onClick={() => setOpen((s) => !s)}
-        className="w-full rounded-full px-5 py-3 pr-12 font-bold text-white text-left"
-        style={{ backgroundColor: ORANGE }}
+        className={`w-full border-b border-[#16181D]/20 bg-transparent py-3 pr-8 text-left text-[15px] transition-colors focus:border-[#E85C03] ${
+          value ? "text-[#16181D]" : "text-[#16181D]/40"
+        }`}
         aria-haspopup="listbox"
         aria-expanded={open}
       >
         {selectedLabel}
         <ChevronDown
-          className={`absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white transition-transform ${
+          className={`absolute right-1 top-1/2 h-5 w-5 -translate-y-1/2 text-[#16181D]/50 transition-transform ${
             open ? "rotate-180" : ""
           }`}
         />
@@ -305,100 +319,108 @@ export default function Contact() {
           </Reveal>
 
           {/* Derecha: formulario */}
-          <Reveal delay={0.15} className="w-full rounded-[28px] border border-[#16181D]/10 bg-white p-6 shadow-[0_20px_50px_rgba(40,50,65,0.1)] sm:p-8">
-            <h2 className="text-display text-center font-bold text-[#16181D] mb-6 text-[28px] sm:text-3xl md:text-4xl">
+          <Reveal delay={0.15} className="w-full rounded-[24px] border border-[#16181D]/10 bg-white p-7 shadow-[0_24px_60px_rgba(40,50,65,0.10)] sm:p-10">
+            <p className="label-mono text-[10px] text-[#E85C03]">Cotización</p>
+            <h2 className="text-display mt-3 text-[28px] font-bold text-[#16181D] sm:text-4xl">
               Conecta con nosotros
             </h2>
+            <p className="mt-2 text-[14px] leading-relaxed text-[#16181D]/55">
+              Cuéntanos de tu proyecto y te respondemos a la brevedad.
+            </p>
 
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              {/* Nombre / Apellido */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                <input
-                  type="text"
-                  name="nombre"
-                  placeholder="Nombre"
-                  value={form.nombre}
-                  onChange={handleChange}
-                  required
-                  className="w-full rounded-full border-2 bg-white px-5 py-3 outline-none transition-shadow placeholder:text-black/50 focus:ring-4 focus:ring-[#E85C03]/20"
-                  style={{ borderColor: ORANGE }}
-                />
-                <input
-                  type="text"
-                  name="apellido"
-                  placeholder="Apellido"
-                  value={form.apellido}
-                  onChange={handleChange}
-                  required
-                  className="w-full rounded-full border-2 bg-white px-5 py-3 outline-none transition-shadow placeholder:text-black/50 focus:ring-4 focus:ring-[#E85C03]/20"
-                  style={{ borderColor: ORANGE }}
-                />
+            <form className="mt-8 space-y-7" onSubmit={handleSubmit}>
+              <div className="grid grid-cols-1 gap-7 sm:grid-cols-2">
+                <Field label="Nombre">
+                  <input
+                    type="text"
+                    name="nombre"
+                    placeholder="Tu nombre"
+                    value={form.nombre}
+                    onChange={handleChange}
+                    required
+                    className={inputCls}
+                  />
+                </Field>
+                <Field label="Apellido">
+                  <input
+                    type="text"
+                    name="apellido"
+                    placeholder="Tu apellido"
+                    value={form.apellido}
+                    onChange={handleChange}
+                    required
+                    className={inputCls}
+                  />
+                </Field>
               </div>
 
-              <input
-                type="email"
-                name="email"
-                placeholder="Correo electrónico"
-                value={form.email}
-                onChange={handleChange}
-                required
-                className="w-full rounded-full border-2 bg-white px-5 py-3 outline-none transition-shadow placeholder:text-black/50 focus:ring-4 focus:ring-[#E85C03]/20"
-                style={{ borderColor: ORANGE }}
-              />
+              <Field label="Correo electrónico">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="tucorreo@ejemplo.com"
+                  value={form.email}
+                  onChange={handleChange}
+                  required
+                  className={inputCls}
+                />
+              </Field>
 
-              <input
-                type="tel"
-                name="telefono"
-                placeholder="Teléfono"
-                value={form.telefono}
-                onChange={handleChange}
-                required
-                className="w-full rounded-full border-2 bg-white px-5 py-3 outline-none transition-shadow placeholder:text-black/50 focus:ring-4 focus:ring-[#E85C03]/20"
-                style={{ borderColor: ORANGE }}
-              />
+              <Field label="Teléfono">
+                <input
+                  type="tel"
+                  name="telefono"
+                  placeholder="55 0000 0000"
+                  value={form.telefono}
+                  onChange={handleChange}
+                  required
+                  className={inputCls}
+                />
+              </Field>
 
-              {/* Dropdown estilizado */}
-              <FancySelect
-                options={[
-                  { value: "inmobiliaria", label: "Inmobiliaria" },
-                  { value: "emprendedor", label: "Emprendedor" },
-                  { value: "otro", label: "Otro" },
-                ]}
-                value={tipoCliente}
-                onChange={setTipoCliente}
-              />
+              <Field label="¿Eres inmobiliaria o emprendedor?">
+                <FancySelect
+                  placeholder="Selecciona una opción"
+                  options={[
+                    { value: "inmobiliaria", label: "Inmobiliaria" },
+                    { value: "emprendedor", label: "Emprendedor" },
+                    { value: "otro", label: "Otro" },
+                  ]}
+                  value={tipoCliente}
+                  onChange={setTipoCliente}
+                />
+              </Field>
 
-              <textarea
-                name="mensaje"
-                placeholder="Cuéntanos como podríamos ayudarte..."
-                rows={4}
-                value={form.mensaje}
-                onChange={handleChange}
-                required
-                className="w-full rounded-[32px] border-2 bg-white px-5 py-4 outline-none resize-none transition-shadow placeholder:text-black/50 focus:ring-4 focus:ring-[#E85C03]/20"
-                style={{ borderColor: ORANGE }}
-              />
+              <Field label="Mensaje">
+                <textarea
+                  name="mensaje"
+                  placeholder="Cuéntanos cómo podríamos ayudarte…"
+                  rows={3}
+                  value={form.mensaje}
+                  onChange={handleChange}
+                  required
+                  className={`${inputCls} resize-none`}
+                />
+              </Field>
 
               {error && (
-                <p className="text-red-600 text-center text-sm sm:text-base">
-                  {error}
-                </p>
+                <p className="text-sm text-red-600">{error}</p>
               )}
               {ok && (
-                <p className="text-green-600 text-center text-sm sm:text-base">
+                <p className="text-sm text-green-700">
                   Se abrió tu correo con el mensaje listo. ¡Revísalo y envíalo!
                 </p>
               )}
 
-              <div className="pt-1 sm:pt-2 flex">
-                <button
-                  type="submit"
-                  className="w-full sm:w-auto sm:px-8 inline-flex items-center justify-center rounded-full px-6 py-3 font-bold text-white shadow-[0_6px_0_rgba(0,0,0,0.25)] transition-transform hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-[0_4px_0_rgba(0,0,0,0.25)]"
-                  style={{ backgroundColor: ORANGE }}
-                >
-                  Enviar
-                </button>
-              </div>
+              <button
+                type="submit"
+                className="group inline-flex w-full items-center justify-between gap-3 rounded-full bg-[#16181D] py-2 pl-7 pr-2 text-white transition-colors duration-300 hover:bg-[#E85C03]"
+              >
+                <span className="label-mono text-[11px]">Enviar mensaje</span>
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-[#16181D]">
+                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
+              </button>
             </form>
           </Reveal>
         </div>

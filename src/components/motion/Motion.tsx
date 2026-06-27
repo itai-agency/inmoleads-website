@@ -318,11 +318,11 @@ export function Marquee({
   }
 
   return (
-    <div className={`group flex overflow-hidden ${className ?? ""}`}>
+    <div className={`flex overflow-hidden ${className ?? ""}`}>
       <div
         className={`flex shrink-0 ${
           reverse ? "animate-marquee-reverse" : "animate-marquee"
-        } pause-on-hover ${itemClassName ?? ""}`}
+        } ${itemClassName ?? ""}`}
         style={{ animationDuration: `${speed}s` }}
       >
         {children}
@@ -331,7 +331,7 @@ export function Marquee({
         aria-hidden
         className={`flex shrink-0 ${
           reverse ? "animate-marquee-reverse" : "animate-marquee"
-        } pause-on-hover ${itemClassName ?? ""}`}
+        } ${itemClassName ?? ""}`}
         style={{ animationDuration: `${speed}s` }}
       >
         {children}

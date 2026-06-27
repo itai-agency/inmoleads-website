@@ -26,10 +26,10 @@ const MarqueeRibbon = () => {
         {BOTTOM.map((w, i) => (
           <span
             key={i}
-            className="text-display mx-6 inline-flex items-center gap-6 whitespace-nowrap text-[clamp(2.5rem,9vw,6.5rem)] font-bold uppercase leading-none tracking-tight text-transparent [-webkit-text-stroke:1.5px_rgba(22,24,29,0.35)]"
+            className="text-display mx-6 inline-flex items-center gap-6 whitespace-nowrap text-[clamp(2.5rem,9vw,6.5rem)] font-bold uppercase leading-none tracking-tight text-[#16181D]/20"
           >
             {w}
-            <span className="text-[#E85C03] [-webkit-text-stroke:0]">/</span>
+            <span className="text-[#E85C03]">/</span>
           </span>
         ))}
       </Marquee>
