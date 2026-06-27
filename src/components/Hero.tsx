@@ -54,11 +54,11 @@ const Hero = () => {
       {/* ground vignette */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-1/2 bg-[radial-gradient(ellipse_at_bottom,rgba(120,130,145,0.16),transparent_70%)]" />
       {/* left edge architectural ruler */}
-      <div className="ruler-ticks-v pointer-events-none absolute bottom-0 left-6 top-28 z-0 hidden w-2 opacity-50 md:block" />
+      <div className="ruler-ticks-v pointer-events-none absolute bottom-0 left-6 top-28 z-0 hidden w-2 opacity-50 lg:block" />
 
       {/* ===================== DESKTOP ===================== */}
       {/* top instrument row */}
-      <div className="absolute inset-x-0 top-[12%] z-20 hidden px-10 md:block">
+      <div className="absolute inset-x-0 top-[12%] z-20 hidden px-10 lg:block">
         <motion.div
           style={{ opacity: S(fade) }}
           initial={reduce ? false : { scaleX: 0 }}
@@ -95,7 +95,7 @@ const Hero = () => {
       {/* Colossal wordmark — curtain reveal, sits high */}
       <motion.div
         style={{ y: S(titleY), opacity: S(fade) }}
-        className="pointer-events-none absolute inset-x-0 top-[26%] z-0 hidden md:block"
+        className="pointer-events-none absolute inset-x-0 top-[26%] z-0 hidden lg:block"
       >
         <h1 className="text-display select-none whitespace-nowrap text-center font-bold leading-none tracking-[-0.045em] text-[#16181D]">
           <span className="inline-block overflow-hidden pb-[0.14em] align-bottom">
@@ -114,7 +114,7 @@ const Hero = () => {
       {/* House cutout — contact shadow + pedestal, slow showcase sway */}
       <motion.div
         style={{ y: S(houseY) }}
-        className="absolute inset-x-0 bottom-0 z-10 hidden items-end justify-center md:flex"
+        className="absolute inset-x-0 bottom-0 z-10 hidden items-end justify-center lg:flex"
       >
         <div className="relative flex items-end justify-center">
           {/* soft contact shadow */}
@@ -141,7 +141,7 @@ const Hero = () => {
           doesn't cancel the appear animation) */}
       <motion.div
         style={{ x: S(leftX), opacity: S(fade) }}
-        className="absolute bottom-10 left-10 z-20 hidden max-w-xs md:block"
+        className="absolute bottom-10 left-10 z-20 hidden max-w-xs lg:block"
       >
         <motion.div {...rise(0.85)}>
           <div className="mb-4 space-y-1.5 border-l border-[#16181D]/15 pl-4">
@@ -158,7 +158,7 @@ const Hero = () => {
       {/* Bottom-right data + CTA */}
       <motion.div
         style={{ x: S(rightX), opacity: S(fade) }}
-        className="absolute bottom-10 right-10 z-20 hidden md:block"
+        className="absolute bottom-10 right-10 z-20 hidden lg:block"
       >
         <motion.div {...rise(1)} className="flex items-end gap-6">
           <div className="text-right">
@@ -190,7 +190,7 @@ const Hero = () => {
       <div className="bg-grain pointer-events-none absolute inset-0 z-30 opacity-[0.07] mix-blend-multiply" />
 
       {/* ===================== MOBILE ===================== */}
-      <div className="relative z-10 flex flex-1 flex-col px-5 pb-10 md:hidden">
+      <div className="relative z-10 mx-auto flex w-full max-w-xl flex-1 flex-col px-5 pb-10 lg:hidden">
         <p className="label-mono text-[10px] text-[#16181D]/60">
           Flipping inmobiliario — México
         </p>

@@ -67,7 +67,7 @@ const About = () => {
 
         {/* value cards */}
         <Stagger
-          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-6 lg:grid-cols-4"
           stagger={0.1}
         >
           {cards.map((c) => (
